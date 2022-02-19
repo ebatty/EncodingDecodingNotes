@@ -301,8 +301,9 @@
 <p class="admonition-title"><strong>Stop and think!</strong> What can you conclude about the neurons recorded in cortico-hippocampal slices shown in Figure 2?</p>
 <p>From the raster in Figure 2, you can conclude that the neurons in the population are synchronized: there are periods of time when all neurons are spiking (indicated by red arrows), and periods of time when all neurons are silent.</p>
 </div>
-<div class="note dropdown admonition">
+<div class="admonition-coding-corner-plotting-rasters-in-python admonition">
 <p class="admonition-title"><strong>Coding Corner!</strong> Plotting rasters in Python</p>
+<p>:class: note, dropdown</p>
 <p>We can create raster plots in matplotlib by using <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.eventplot.html"><code class="docutils literal notranslate"><span class="pre">plt.eventplot</span></code></a>.</p>
 <p>The first argument is a list of arrays, where each array contains the spike times for that row of the raster. For example, if you are plotting multiple trials of one neuron, each array would contain the spike times of one trial.</p>
 <p>For example, in the raster plot created below, the neuron spiked at 5.4 milliseconds, 11.1 ms, 15.6 ms, 16.7 ms, and 27.8 ms in trial 1. In trial 2, it spiked at 1.4 ms, 11.9 ms, 15.9 ms, 17.7 ms, and 28 ms.</p>
@@ -339,7 +340,8 @@
 <p>We can summarize the information over trials contained in a raster plot in a peri-stimulus time histogram (PSTH), also sometimes called a peri-event time histogram (PETH). In this plot, we want to show the average underlying firing rate over time. To do that, we need to use discrete chunks of time - we divide time into time bins of some length. For each time bin, we can then count the number of spikes in that time bin over all the trials. We can then get the average spikes/bin for that time bin during the trial as the the number of spikes divided by the number of trials. We can convert to spikes/second by dividing by the bin length in seconds.</p>
 <p>See Figure 3 for an example of the construction of a PSTH from 5 trials of neural data, where each trial is just 30 ms long. We use a bin width of 5 ms - the red vertical lines denote the bin edges. We then count up the number of spikes over all the trials (2 for the first time bin), divide by the number of trials (to get to 2/5 for the first time bin), and that is our average firing rate in spikes/bin for that part of the trial.</p>
 <p>Click to see a solution</p>
-<p>````{admonition} <strong>Advanced Coding Challenge!</strong> Using the data in <code class="docutils literal notranslate"><span class="pre">all_sp_time_list</span></code> (defined above), compute the PSTH for a bin size of 5 ms. Make <code class="docutils literal notranslate"><span class="pre">PSTH</span></code> an array of shape (n_bins, ), where each element is the firing rate in terms of spikes/second for that bin.:class: note, dropdown</p>
+<p>````{admonition} <strong>Advanced Coding Challenge!</strong> Using the data in <code class="docutils literal notranslate"><span class="pre">all_sp_time_list</span></code> (defined above), compute the PSTH for a bin size of 5 ms. Make <code class="docutils literal notranslate"><span class="pre">PSTH</span></code> an array of shape (n_bins, ), where each element is the firing rate in terms of spikes/second for that bin.
+:class: note, dropdown</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Keep in mind there are lots of ways of doing this!</span>
 
 <span class="c1"># Define bin width</span>
