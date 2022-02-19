@@ -194,22 +194,17 @@
             </div>
             <nav id="bd-toc-nav" aria-label="Page">
                 <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   01 - Visualizing Neural Responses
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-1-experimental-set-up">
    Section 1: Experimental set-up
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-2-raster-plots">
    Section 2: Raster plots
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-3-psths">
    Section 3: PSTHs
   </a>
@@ -234,22 +229,17 @@
                         </div>
                         <nav aria-label="Page">
                             <ul class="visible nav section-nav flex-column">
- <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#">
-   01 - Visualizing Neural Responses
-  </a>
- </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-1-experimental-set-up">
    Section 1: Experimental set-up
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-2-raster-plots">
    Section 2: Raster plots
   </a>
  </li>
- <li class="toc-h1 nav-item toc-entry">
+ <li class="toc-h2 nav-item toc-entry">
   <a class="reference internal nav-link" href="#section-3-psths">
    Section 3: PSTHs
   </a>
@@ -278,9 +268,8 @@
 </div>
 </div>
 </div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="section-1-experimental-set-up">
-<h1>Section 1: Experimental set-up<a class="headerlink" href="#section-1-experimental-set-up" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-1-experimental-set-up">
+<h2>Section 1: Experimental set-up<a class="headerlink" href="#section-1-experimental-set-up" title="Permalink to this headline">¶</a></h2>
 <p>In the next few sections, we will cover important concepts in the context of a case study. In this case study, you are a computational neuroscientist and you have a hypothesis that some neurons in monkey motor cortex correlate with the direction of arm movement while reaching. By this, you mean that a particular neuron will fire more when the monkey reaches in certain directions than others.</p>
 <p>You are able to record the spike times of a neuron from motor cortex in a monkey.</p>
 <div class="tip dropdown admonition">
@@ -294,8 +283,8 @@
 <p>The very first thing you should do when you collect new data or receive data from someone else is visualize it! The importance of this step cannot be overemphasized.</p>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="section-2-raster-plots">
-<h1>Section 2: Raster plots<a class="headerlink" href="#section-2-raster-plots" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-2-raster-plots">
+<h2>Section 2: Raster plots<a class="headerlink" href="#section-2-raster-plots" title="Permalink to this headline">¶</a></h2>
 <p>An excellent and common way to visualize neural spiking in multiple trials is a <strong>raster plot</strong>, an example of which can be found in Figure 1. In this style of plot, time is represented on the x-axis. Each spike is represented by a vertical line at the time it occurs. Each row (y-axis) can be a separate trial - in this case the raster plot displays a single neuron’s responses over multiple trials and can be used to quickly assess response variability. Note that the timing of each trial needs to be synced. In other words, the stimulus onset, or event onset, should happen at the same time in each trial.</p>
 <a class="reference internal image-reference" href="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True"><img alt="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" src="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" style="width: 600px;" /></a>
 <p><em>Figure 1: An example raster plot, adapted from <a class="reference external" href="https://www.eneuro.org/content/6/5/ENEURO.0153-19.2019">Putnam and Gothard, eNeuro 2019</a>, under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a></em></p>
@@ -343,8 +332,8 @@
 </div>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="section-3-psths">
-<h1>Section 3: PSTHs<a class="headerlink" href="#section-3-psths" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-3-psths">
+<h2>Section 3: PSTHs<a class="headerlink" href="#section-3-psths" title="Permalink to this headline">¶</a></h2>
 <p>We can summarize the information over trials contained in a raster plot in a peri-stimulus time histogram (PSTH), also sometimes called a peri-event time histogram (PETH). In this plot, we want to show the average underlying firing rate over time. To do that, we need to use discrete chunks of time - we divide time into time bins of some length. For each time bin, we can then count the number of spikes in that time bin over all the trials. We can then get the average spikes/bin for that time bin during the trial as the the number of spikes divided by the number of trials. We can convert to spikes/second by dividing by the bin length in seconds.</p>
 <p>See Figure 3 for an example of the construction of a PSTH from 5 trials of neural data, where each trial is just 30 ms long. We use a bin width of 5 ms - the red vertical lines denote the bin edges. We then count up the number of spikes over all the trials (2 for the first time bin), divide by the number of trials (to get to 2/5 for the first time bin), and that is our average firing rate in spikes/bin for that part of the trial.</p>
 <p><strong>Advanced coding challenge!</strong></p>
@@ -526,6 +515,7 @@
 <p>The neuron fires a lot when the monkey is reaching at 135 and 180 degrees. It responds much less for 0 degrees and 315 degrees.</p>
 </div>
 <p><strong>smoothing PSTHs</strong></p>
+</div>
 </div>
 
     <script type="text/x-thebe-config">
