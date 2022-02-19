@@ -59,7 +59,7 @@ def make_coding_corners(content):
 
             # Make dropdown
             updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {cell['source'][0]}",
-                                               '\n:class: note, dropdown\n'] + cell['source'][1:] + \
+                                               ':class: note, dropdown\n'] + cell['source'][1:] + \
                                               ['\n```{code-block} python \n'] + python_code + ['\n```\n']
 
             # If figure generated, glue it
