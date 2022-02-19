@@ -59,6 +59,8 @@ def make_coding_corners(content):
 
             # Make dropdown
             first_line = cell['source'][0].replace('`','')
+            if not first_line.endswith('\n'):
+                first_line += '\n'
             updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {first_line}",
                                                ':class: note, dropdown\n'] + cell['source'][1:] + \
                                               ['\n```{code-block} python \n'] + python_code + ['\n```\n']
