@@ -338,7 +338,6 @@
 <h2>Section 3: PSTHs<a class="headerlink" href="#section-3-psths" title="Permalink to this headline">¶</a></h2>
 <p>We can summarize the information over trials contained in a raster plot in a peri-stimulus time histogram (PSTH), also sometimes called a peri-event time histogram (PETH). In this plot, we want to show the average underlying firing rate over time. To do that, we need to use discrete chunks of time - we divide time into time bins of some length. For each time bin, we can then count the number of spikes in that time bin over all the trials. We can then get the average spikes/bin for that time bin during the trial as the the number of spikes divided by the number of trials. We can convert to spikes/second by dividing by the bin length in seconds.</p>
 <p>See Figure 3 for an example of the construction of a PSTH from 5 trials of neural data, where each trial is just 30 ms long. We use a bin width of 5 ms - the red vertical lines denote the bin edges. We then count up the number of spikes over all the trials (2 for the first time bin), divide by the number of trials (to get to 2/5 for the first time bin), and that is our average firing rate in spikes/bin for that part of the trial.</p>
-<p>Click to see a solution</p>
 <p>````{admonition} <strong>Advanced Coding Challenge!</strong> Using the data in <code class="docutils literal notranslate"><span class="pre">all_sp_time_list</span></code> (defined above), compute the PSTH for a bin size of 5 ms. Make <code class="docutils literal notranslate"><span class="pre">PSTH</span></code> an array of shape (n_bins, ), where each element is the firing rate in terms of spikes/second for that bin.:class: note, dropdown</p>
 <div class="highlight-python notranslate"><div class="highlight"><pre><span></span><span class="c1">## Keep in mind there are lots of ways of doing this!</span>
 
@@ -403,7 +402,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_23_0.png" src="../_images/01_VisualizingNeuralResponses_23_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_22_0.png" src="../_images/01_VisualizingNeuralResponses_22_0.png" />
 </div>
 </div>
 <p><em>Figure 3: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 5 ms.</em></p>
@@ -426,7 +425,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_27_0.png" src="../_images/01_VisualizingNeuralResponses_27_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_26_0.png" src="../_images/01_VisualizingNeuralResponses_26_0.png" />
 </div>
 </div>
 <p><em>Figure 4: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 15 ms. This bin width is too large and you lose a lot of temporal information!</em></p>
@@ -445,7 +444,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_30_0.png" src="../_images/01_VisualizingNeuralResponses_30_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_29_0.png" src="../_images/01_VisualizingNeuralResponses_29_0.png" />
 </div>
 </div>
 <p><em>Figure 5: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of .5 ms. This bin width is too small - the PSTH conveys a lot about the exact spike timings in this set of trials but doesn’t give us a sense of how the underlying firing rate is changing over time</em></p>
@@ -504,7 +503,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_35_0.png" src="../_images/01_VisualizingNeuralResponses_35_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_34_0.png" src="../_images/01_VisualizingNeuralResponses_34_0.png" />
 </div>
 </div>
 <p><em>Figure 6: Raster plots of motor neuron response for 10 trials for each reach condition. Please note that this is faked data for illustrative purposes. The blue vertical line indicates the start of each reach.</em></p>
