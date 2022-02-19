@@ -67,7 +67,7 @@ def make_coding_corners(content):
 
 
             updated_cells[i_cell + 1]['source'] += ['````']
-            updated_cells[i_cell]['metadata']['tags'] = ['remove-cell']
+            #updated_cells[i_cell]['metadata']['tags'] = ['remove-cell']
     content['cells'] = updated_cells
     return content
 
