@@ -302,7 +302,7 @@
 <p>From the raster in Figure 2, you can conclude that the neurons in the population are synchronized: there are periods of time when all neurons are spiking (indicated by red arrows), and periods of time when all neurons are silent.</p>
 </div>
 <div class="note dropdown admonition">
-<p class="admonition-title"><strong>Coding Corner!</strong></p>
+<p class="admonition-title"><strong>Coding Corner!</strong> Plotting rasters in Python</p>
 <p>We can create raster plots in matplotlib by using <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.eventplot.html"><code class="docutils literal notranslate"><span class="pre">plt.eventplot</span></code></a>.</p>
 <p>The first argument is a list of arrays, where each array contains the spike times for that row of the raster. For example, if you are plotting multiple trials of one neuron, each array would contain the spike times of one trial.</p>
 <p>For example, in the raster plot created below, the neuron spiked at 5.4 milliseconds, 11.1 ms, 15.6 ms, 16.7 ms, and 27.8 ms in trial 1. In trial 2, it spiked at 1.4 ms, 11.9 ms, 15.9 ms, 17.7 ms, and 28 ms.</p>
@@ -521,7 +521,6 @@ Click to see a solution</p>
 <p class="admonition-title"><strong>Stop and think!</strong> Based on Figure 6, what directions of reach does this neuron fire a lot to? What directions of reach does it not respond for?</p>
 <p>The neuron fires a lot when the monkey is reaching at 135 and 180 degrees. It responds much less for 0 degrees and 315 degrees.</p>
 </div>
-<p><strong>smoothing PSTHs</strong></p>
 </div>
 </div>
 
