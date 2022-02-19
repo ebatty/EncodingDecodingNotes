@@ -45,7 +45,7 @@ def make_coding_corners(content):
 
     i_updated_cell = 0
     for i_cell, cell in enumerate(cells):
-        if cell['source'][0].startswith("**Coding Corner!**"):
+        if cell['source'][0].startswith("**Coding Corner!**") or cell['source'][0].startswith("**Advanced Coding Challenge!**"):
 
             # Get next cell containing Python code
             python_code = cells[i_cell + 1]['source']
@@ -55,7 +55,7 @@ def make_coding_corners(content):
             updated_cells[i_cell + 1] = cells[i_cell]
 
             # Make dropdown
-            updated_cells[i_cell + 1]['source'] = [f'````{{admonition}} Coding Corner! \n',
+            updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {cell['source'][0]}",
                                                ':class: note, dropdown\n'] + cell['source'][1:] + \
                                               ['```{code-block} python \n'] + python_code + ['\n```\n']
 
