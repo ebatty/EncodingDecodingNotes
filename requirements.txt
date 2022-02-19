@@ -1,0 +1,6 @@
+numpy
+scipy
+matplotlib
+ipywidgets
+decorator==5.0.9
+jupyter-book
