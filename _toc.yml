@@ -3,4 +3,4 @@ root: intro
 parts:
   - caption: Neural Coding
     chapters:
-    - file: Notes/01_NeuralResponses&TuningCurves.ipynb
+    - file: Notes/01_VisualizingNeuralResponses.ipynb
