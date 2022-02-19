@@ -5,7 +5,7 @@
   <head>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>01 - Neural Responses &amp; Tuning Curves &#8212; Introductory Computational Neuroscience</title>
+    <title>01 - Visualizing Neural Responses &#8212; Introductory Computational Neuroscience</title>
     
   <link href="../_static/css/theme.css" rel="stylesheet">
   <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
@@ -45,8 +45,6 @@
     <script src="../_static/togglebutton.js"></script>
     <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
     <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
-    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
-    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
     <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
     <script>
         const thebe_selector = ".thebe,.cell"
@@ -103,7 +101,7 @@
 <ul class="current nav bd-sidenav">
  <li class="toctree-l1 current active">
   <a class="current reference internal" href="#">
-   01 - Neural Responses &amp; Tuning Curves
+   01 - Visualizing Neural Responses
   </a>
  </li>
 </ul>
@@ -147,7 +145,7 @@
         <!-- ipynb file if we had a myst markdown file -->
         
         <!-- Download raw file -->
-        <a class="dropdown-buttons" href="../_sources/Notes/01_NeuralResponses&TuningCurves.ipynb"><button type="button"
+        <a class="dropdown-buttons" href="../_sources/Notes/01_VisualizingNeuralResponses.ipynb"><button type="button"
                 class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
                 data-placement="left">.ipynb</button></a>
         <!-- Download PDF via print -->
@@ -174,7 +172,7 @@
         
         
         
-        <a class="colab-button" href="https://colab.research.google.com/github/ebatty/IntroCompNeuro/blob/main/Notes/01_NeuralResponses&TuningCurves.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+        <a class="colab-button" href="https://colab.research.google.com/github/ebatty/IntroCompNeuro/blob/main/Notes/01_VisualizingNeuralResponses.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
                 title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
                     src="../_static/images/logo_colab.png"
                     alt="Interact on Colab">Colab</button></a>
@@ -198,7 +196,7 @@
                 <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   01 - Neural Responses &amp; Tuning Curves
+   01 - Visualizing Neural Responses
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -207,38 +205,14 @@
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#section-2-visualizing-neural-responses">
-   Section 2: Visualizing Neural Responses
+  <a class="reference internal nav-link" href="#section-2-raster-plots">
+   Section 2: Raster plots
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-2-1-raster-plots">
-     Section 2.1: Raster Plots
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-2-2-psths">
-     Section 2.2: PSTHs
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#section-3-tuning-curves">
-   Section 3: Tuning curves
+  <a class="reference internal nav-link" href="#section-3-psths">
+   Section 3: PSTHs
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-3-1-plotting-tuning-curves">
-     Section 3.1: Plotting tuning curves
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-3-2-parameterizing-tuning-curves">
-     Section 3.2: Parameterizing tuning curves
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -250,7 +224,7 @@
         <div class="col-12 col-md-9 pl-md-3 pr-md-0">
             <!-- Table of contents that is only displayed when printing the page -->
             <div id="jb-print-docs-body" class="onlyprint">
-                <h1>01 - Neural Responses & Tuning Curves</h1>
+                <h1>01 - Visualizing Neural Responses</h1>
                 <!-- Table of contents -->
                 <div id="print-main-content">
                     <div id="jb-print-toc">
@@ -262,7 +236,7 @@
                             <ul class="visible nav section-nav flex-column">
  <li class="toc-h1 nav-item toc-entry">
   <a class="reference internal nav-link" href="#">
-   01 - Neural Responses &amp; Tuning Curves
+   01 - Visualizing Neural Responses
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
@@ -271,38 +245,14 @@
   </a>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#section-2-visualizing-neural-responses">
-   Section 2: Visualizing Neural Responses
+  <a class="reference internal nav-link" href="#section-2-raster-plots">
+   Section 2: Raster plots
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-2-1-raster-plots">
-     Section 2.1: Raster Plots
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-2-2-psths">
-     Section 2.2: PSTHs
-    </a>
-   </li>
-  </ul>
  </li>
  <li class="toc-h1 nav-item toc-entry">
-  <a class="reference internal nav-link" href="#section-3-tuning-curves">
-   Section 3: Tuning curves
+  <a class="reference internal nav-link" href="#section-3-psths">
+   Section 3: PSTHs
   </a>
-  <ul class="visible nav section-nav flex-column">
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-3-1-plotting-tuning-curves">
-     Section 3.1: Plotting tuning curves
-    </a>
-   </li>
-   <li class="toc-h2 nav-item toc-entry">
-    <a class="reference internal nav-link" href="#section-3-2-parameterizing-tuning-curves">
-     Section 3.2: Parameterizing tuning curves
-    </a>
-   </li>
-  </ul>
  </li>
 </ul>
 
@@ -313,9 +263,9 @@
             
               <div>
                 
-  <p><a href="https://colab.research.google.com/github/ebatty/EncodingDecodingNotes/blob/main/Notes/01_NeuralResponses%26TuningCurves.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
-<div class="tex2jax_ignore mathjax_ignore section" id="neural-responses-tuning-curves">
-<h1>01 - Neural Responses &amp; Tuning Curves<a class="headerlink" href="#neural-responses-tuning-curves" title="Permalink to this headline">¶</a></h1>
+  <p><a href="https://colab.research.google.com/github/ebatty/EncodingDecodingNotes/blob/main/Notes/01_VisualizingNeuralResponses.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="tex2jax_ignore mathjax_ignore section" id="visualizing-neural-responses">
+<h1>01 - Visualizing Neural Responses<a class="headerlink" href="#visualizing-neural-responses" title="Permalink to this headline">¶</a></h1>
 <p>Imports</p>
 <div class="cell tag_hide-input docutils container">
 <div class="cell_input docutils container">
@@ -344,10 +294,8 @@
 <p>The very first thing you should do when you collect new data or receive data from someone else is visualize it! The importance of this step cannot be overemphasized.</p>
 </div>
 </div>
-<div class="tex2jax_ignore mathjax_ignore section" id="section-2-visualizing-neural-responses">
-<h1>Section 2: Visualizing Neural Responses<a class="headerlink" href="#section-2-visualizing-neural-responses" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="section-2-1-raster-plots">
-<h2>Section 2.1: Raster Plots<a class="headerlink" href="#section-2-1-raster-plots" title="Permalink to this headline">¶</a></h2>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-2-raster-plots">
+<h1>Section 2: Raster plots<a class="headerlink" href="#section-2-raster-plots" title="Permalink to this headline">¶</a></h1>
 <p>An excellent and common way to visualize neural spiking in multiple trials is a <strong>raster plot</strong>, an example of which can be found in Figure 1. In this style of plot, time is represented on the x-axis. Each spike is represented by a vertical line at the time it occurs. Each row (y-axis) can be a separate trial - in this case the raster plot displays a single neuron’s responses over multiple trials and can be used to quickly assess response variability. Note that the timing of each trial needs to be synced. In other words, the stimulus onset, or event onset, should happen at the same time in each trial.</p>
 <a class="reference internal image-reference" href="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True"><img alt="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" src="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" style="width: 600px;" /></a>
 <p><em>Figure 1: An example raster plot, adapted from <a class="reference external" href="https://www.eneuro.org/content/6/5/ENEURO.0153-19.2019">Putnam and Gothard, eNeuro 2019</a>, under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a></em></p>
@@ -391,12 +339,12 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_17_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_17_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_17_0.png" src="../_images/01_VisualizingNeuralResponses_17_0.png" />
 </div>
 </div>
 </div>
-<div class="section" id="section-2-2-psths">
-<h2>Section 2.2: PSTHs<a class="headerlink" href="#section-2-2-psths" title="Permalink to this headline">¶</a></h2>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-3-psths">
+<h1>Section 3: PSTHs<a class="headerlink" href="#section-3-psths" title="Permalink to this headline">¶</a></h1>
 <p>We can summarize the information over trials contained in a raster plot in a peri-stimulus time histogram (PSTH), also sometimes called a peri-event time histogram (PETH). In this plot, we want to show the average underlying firing rate over time. To do that, we need to use discrete chunks of time - we divide time into time bins of some length. For each time bin, we can then count the number of spikes in that time bin over all the trials. We can then get the average spikes/bin for that time bin during the trial as the the number of spikes divided by the number of trials. We can convert to spikes/second by dividing by the bin length in seconds.</p>
 <p>See Figure 3 for an example of the construction of a PSTH from 5 trials of neural data, where each trial is just 30 ms long. We use a bin width of 5 ms - the red vertical lines denote the bin edges. We then count up the number of spikes over all the trials (2 for the first time bin), divide by the number of trials (to get to 2/5 for the first time bin), and that is our average firing rate in spikes/bin for that part of the trial.</p>
 <p><strong>Advanced coding challenge!</strong></p>
@@ -468,7 +416,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_23_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_23_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_23_0.png" src="../_images/01_VisualizingNeuralResponses_23_0.png" />
 </div>
 </div>
 <p><em>Figure 3: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 5 ms.</em></p>
@@ -491,7 +439,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_27_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_27_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_27_0.png" src="../_images/01_VisualizingNeuralResponses_27_0.png" />
 </div>
 </div>
 <p><em>Figure 4: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 15 ms. This bin width is too large and you lose a lot of temporal information!</em></p>
@@ -510,7 +458,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_30_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_30_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_30_0.png" src="../_images/01_VisualizingNeuralResponses_30_0.png" />
 </div>
 </div>
 <p><em>Figure 5: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of .5 ms. This bin width is too small - the PSTH conveys a lot about the exact spike timings in this set of trials but doesn’t give us a sense of how the underlying firing rate is changing over time</em></p>
@@ -569,7 +517,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_35_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_35_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_35_0.png" src="../_images/01_VisualizingNeuralResponses_35_0.png" />
 </div>
 </div>
 <p><em>Figure 6: Raster plots of motor neuron response for 10 trials for each reach condition. Please note that this is faked data for illustrative purposes. The blue vertical line indicates the start of each reach.</em></p>
@@ -578,82 +526,6 @@
 <p>The neuron fires a lot when the monkey is reaching at 135 and 180 degrees. It responds much less for 0 degrees and 315 degrees.</p>
 </div>
 <p><strong>smoothing PSTHs</strong></p>
-</div>
-</div>
-<div class="tex2jax_ignore mathjax_ignore section" id="section-3-tuning-curves">
-<h1>Section 3: Tuning curves<a class="headerlink" href="#section-3-tuning-curves" title="Permalink to this headline">¶</a></h1>
-<div class="section" id="section-3-1-plotting-tuning-curves">
-<h2>Section 3.1: Plotting tuning curves<a class="headerlink" href="#section-3-1-plotting-tuning-curves" title="Permalink to this headline">¶</a></h2>
-<p>We can summarize how the neuron responds to different reach directions by creating a tuning curve. We want to plot the average firing rate of the neuron for each reach direction vs the reach direction.</p>
-<div class="tip dropdown admonition">
-<p class="admonition-title"><strong>Stop and think!</strong> How could we get the average firing rate of the neuron for a certain reach?</p>
-<p>First, we choose some time window around reach onset. We then count up the spikes over all trials in that time window and divide by both the number of trials and the length of the time window to get firing rate in terms of spikes per second.</p>
-</div>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown</span>
-
-<span class="n">i_angle</span> <span class="o">=</span> <span class="mi">4</span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-
-<span class="n">ax</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">],</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">750</span><span class="p">,</span> <span class="mi">750</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time (ms)&#39;</span><span class="p">,</span> 
-    <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Trial Number&#39;</span><span class="p">,</span>
-    <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">10.7</span><span class="p">],</span>
-    <span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">yticklabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
-    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="si">}</span><span class="s1"> degrees&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_43_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_43_0.png" />
-</div>
-</div>
-<p><em>Figure 7: Raster plot for reaches to 180 degrees. The blue vertical line indicates the start of the reach, the red vertical lines indicate start and end of time window for computing average firing rate</em></p>
-<p>For this data, we will choose a 500 ms time window: 250 ms before reach onset and 250 ms after. In Figure 7, the raster plot of reaches to 180 degrees, the beginning and end of this time window are shown with red vertical lines. In this 500 ms time bin, 287 spikes occur over the 10 trials. So the average firing rate is 287 spikes / .5 s / 10 trials = 57.4 spikes per second.</p>
-<p>We can repeat this computation for all reach directions and plot our tuning curve (firing rate vs reach direction), as seen in Figure 8.</p>
-<p><strong>coding challenge</strong></p>
-<div class="cell tag_hide-input docutils container">
-<div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown</span>
-
-<span class="c1"># Compute tuning curve data</span>
-<span class="n">av_firing_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">),))</span>
-<span class="k">for</span> <span class="n">i_angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">)):</span>
-  <span class="n">all_sp_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">])</span>
-  <span class="n">sp_count</span> <span class="o">=</span> <span class="p">((</span><span class="n">all_sp_times</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_sp_times</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
-  <span class="n">av_firing_rate</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp_count</span> <span class="o">/</span> <span class="mf">.5</span> <span class="o">/</span> <span class="n">n_trials</span>
-
-<span class="c1"># Visualize </span>
-<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">av_firing_rate</span><span class="p">,</span> <span class="s1">&#39;ok&#39;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Angle of reach (degrees)&#39;</span><span class="p">,</span>
-       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Firing rate (Hz)&#39;</span><span class="p">);</span>
-</pre></div>
-</div>
-</div>
-<div class="cell_output docutils container">
-<img alt="../_images/01_NeuralResponses&amp;TuningCurves_48_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_48_0.png" />
-</div>
-</div>
-<p><em>Figure 8: A tuning curve showing the average firing rate of the neuron to each reach direction.</em></p>
-</div>
-<div class="section" id="section-3-2-parameterizing-tuning-curves">
-<h2>Section 3.2: Parameterizing tuning curves<a class="headerlink" href="#section-3-2-parameterizing-tuning-curves" title="Permalink to this headline">¶</a></h2>
-<p>As you can see from Figure 8, this plot of firing rate vs reach direction quickly helps us see the “tuning” of the neuron, or how it’s response varies across reach directions. This neuron is responding the most to degrees around 180, with smaller responses to higher and lower angles of reach.</p>
-<p>We can summarize this information even more efficiently by doing some curve fitting. It turns out that the tuning of motor cortex neurons can be described well with a cosine curve. In particular, we can model the firing rate for each angle as:</p>
-<div class="math notranslate nohighlight">
-\[f(a) = r_0 + (r_{max} - r_0) cos(a - a_{max})\]</div>
-<p><span class="math notranslate nohighlight">\(a\)</span>: reaching angle</p>
-<p><span class="math notranslate nohighlight">\(a_{max}\)</span>: reaching angle associated with highest response</p>
-<p><span class="math notranslate nohighlight">\(r_{max}\)</span>: maximum response</p>
-<p><span class="math notranslate nohighlight">\(r_0\)</span>: offset or background firing rate</p>
-<p>We fit this equation for a particular neuron by finding the values of <span class="math notranslate nohighlight">\(a_{max}\)</span>, <span class="math notranslate nohighlight">\(r_{max}\)</span>, and <span class="math notranslate nohighlight">\(r_0\)</span> that match this curve closely to the data points. We can then quickly summarize the tuning of each neuron with these fitted parameters.</p>
-</div>
 </div>
 
     <script type="text/x-thebe-config">
