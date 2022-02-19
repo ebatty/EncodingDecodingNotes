@@ -31,9 +31,9 @@ def pre_process_notebook(file_path):
         content = json.load(read_notebook)
     pre_processed_content = open_in_colab_new_tab(content)
     pre_processed_content = change_video_widths(pre_processed_content)
-    pre_processed_content = link_hidden_cells(pre_processed_content)
     pre_processed_content = make_stop_and_thinks(pre_processed_content)
     pre_processed_content = make_coding_corners(pre_processed_content)
+    pre_processed_content = link_hidden_cells(pre_processed_content)
 
     with open(file_path, "w", encoding="utf-8") as write_notebook:
         json.dump(pre_processed_content, write_notebook, indent=1, ensure_ascii=False)
@@ -50,6 +50,9 @@ def make_coding_corners(content):
             # Get next cell containing Python code
             python_code = cells[i_cell + 1]['source']
 
+            if cell['source'][0].startswith("**Advanced Coding Challenge!**"):
+                python_code = python_code[1:]
+
             # Switch order of text & code cell
             updated_cells[i_cell] = cells[i_cell + 1]
             updated_cells[i_cell + 1] = cells[i_cell]
@@ -57,7 +60,7 @@ def make_coding_corners(content):
             # Make dropdown
             updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {cell['source'][0]}",
                                                ':class: note, dropdown\n'] + cell['source'][1:] + \
-                                              ['```{code-block} python \n'] + python_code + ['\n```\n']
+                                              ['\n```{code-block} python \n'] + python_code + ['\n```\n']
 
             # If figure generated, glue it
             if 'fig' in '\t'.join(updated_cells[i_cell]['source']):
