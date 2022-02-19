@@ -58,7 +58,8 @@ def make_coding_corners(content):
             updated_cells[i_cell + 1] = cells[i_cell]
 
             # Make dropdown
-            updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {cell['source'][0]}",
+            first_line = cell['source'][0].replace('`','')
+            updated_cells[i_cell + 1]['source'] = [f"````{{admonition}} {first_line}",
                                                ':class: note, dropdown\n'] + cell['source'][1:] + \
                                               ['\n```{code-block} python \n'] + python_code + ['\n```\n']
 
