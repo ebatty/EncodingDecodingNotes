@@ -1,0 +1,712 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>01 - Neural Responses &amp; Tuning Curves &#8212; Introductory Computational Neuroscience</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="Introduction" href="../intro.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Introductory Computational Neuroscience</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Neural Coding
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   01 - Neural Responses &amp; Tuning Curves
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Notes/01_NeuralResponses&TuningCurves.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/ebatty/IntroCompNeuro/blob/main/Notes/01_NeuralResponses&TuningCurves.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   01 - Neural Responses &amp; Tuning Curves
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-experimental-set-up">
+   Section 1: Experimental set-up
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-2-visualizing-neural-responses">
+   Section 2: Visualizing Neural Responses
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-1-raster-plots">
+     Section 2.1: Raster Plots
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-2-psths">
+     Section 2.2: PSTHs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-3-tuning-curves">
+   Section 3: Tuning curves
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-3-1-plotting-tuning-curves">
+     Section 3.1: Plotting tuning curves
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-3-2-parameterizing-tuning-curves">
+     Section 3.2: Parameterizing tuning curves
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>01 - Neural Responses & Tuning Curves</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   01 - Neural Responses &amp; Tuning Curves
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-experimental-set-up">
+   Section 1: Experimental set-up
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-2-visualizing-neural-responses">
+   Section 2: Visualizing Neural Responses
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-1-raster-plots">
+     Section 2.1: Raster Plots
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-2-psths">
+     Section 2.2: PSTHs
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-3-tuning-curves">
+   Section 3: Tuning curves
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-3-1-plotting-tuning-curves">
+     Section 3.1: Plotting tuning curves
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-3-2-parameterizing-tuning-curves">
+     Section 3.2: Parameterizing tuning curves
+    </a>
+   </li>
+  </ul>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <p><a href="https://colab.research.google.com/github/ebatty/EncodingDecodingNotes/blob/main/Notes/01_NeuralResponses%26TuningCurves.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="tex2jax_ignore mathjax_ignore section" id="neural-responses-tuning-curves">
+<h1>01 - Neural Responses &amp; Tuning Curves<a class="headerlink" href="#neural-responses-tuning-curves" title="Permalink to this headline">¶</a></h1>
+<p>Imports</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib</span>
+<span class="n">matplotlib</span><span class="o">.</span><span class="n">rcParams</span><span class="o">.</span><span class="n">update</span><span class="p">({</span><span class="s1">&#39;font.size&#39;</span><span class="p">:</span> <span class="mi">18</span><span class="p">})</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-1-experimental-set-up">
+<h1>Section 1: Experimental set-up<a class="headerlink" href="#section-1-experimental-set-up" title="Permalink to this headline">¶</a></h1>
+<p>In the next few sections, we will cover important concepts in the context of a case study. In this case study, you are a computational neuroscientist and you have a hypothesis that some neurons in monkey motor cortex correlate with the direction of arm movement while reaching. By this, you mean that a particular neuron will fire more when the monkey reaches in certain directions than others.</p>
+<p>You are able to record the spike times of a neuron from motor cortex in a monkey.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What do you want the experiment to look like?</p>
+<p>You choose an experimental set-up which will allow pretty easy analysis of the data. You have a monkey reach in eight different directions while recording from the neuron. Importantly, you have the monkey reach in each direction numerous times, not just once. You record the time the reach is initiated, perhaps by having the monkey hold onto a joystick with a sensor in it until they reach (the sensor can automatically record when the monkey lets go).</p>
+</div>
+<p>This is a typical experimental protocol in neuroscience: recording the spike times of a neuron while presenting the same stimulus over and over, or having the animal perform the same behavior over and over. Each presentation of the stimulus or iteration of the behavior is called a <strong>trial</strong>. Neurons are noisy - they do not respond exactly the same way every time they see the same stimulus or behavior - collecting multiple trials of data helps us better understand the neural responses and see how variable they are.</p>
+<p>You go ahead and perform your experiment and collect a bunch of data. You now have the spike times of the neuron during multiple reachs in the same direction (and you have this for 8 different directions).</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What should you do next?</p>
+<p>The very first thing you should do when you collect new data or receive data from someone else is visualize it! The importance of this step cannot be overemphasized.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-2-visualizing-neural-responses">
+<h1>Section 2: Visualizing Neural Responses<a class="headerlink" href="#section-2-visualizing-neural-responses" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-2-1-raster-plots">
+<h2>Section 2.1: Raster Plots<a class="headerlink" href="#section-2-1-raster-plots" title="Permalink to this headline">¶</a></h2>
+<p>An excellent and common way to visualize neural spiking in multiple trials is a <strong>raster plot</strong>, an example of which can be found in Figure 1. In this style of plot, time is represented on the x-axis. Each spike is represented by a vertical line at the time it occurs. Each row (y-axis) can be a separate trial - in this case the raster plot displays a single neuron’s responses over multiple trials and can be used to quickly assess response variability. Note that the timing of each trial needs to be synced. In other words, the stimulus onset, or event onset, should happen at the same time in each trial.</p>
+<a class="reference internal image-reference" href="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True"><img alt="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" src="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Putnametal.png?raw=True" style="width: 600px;" /></a>
+<p><em>Figure 1: An example raster plot, adapted from <a class="reference external" href="https://www.eneuro.org/content/6/5/ENEURO.0153-19.2019">Putnam and Gothard, eNeuro 2019</a>, under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a></em></p>
+<p>The raster in Figure 1, adapted from <a class="reference external" href="https://www.eneuro.org/content/6/5/ENEURO.0153-19.2019">Putnam and Gothard, eNeuro 2019</a>, shows neural data from monkey amygdala, recorded while the monkey repeatedly watches a video. The red lines indicate the onset and offset of the video.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What can you infer about the neuron shown in Figure 1?</p>
+<p>From the raster in Figure 1, you can see that the neuron responds to video onset and video offset, because it increases its firing rate shortly after both.</p>
+</div>
+<p>Instead of the raster showing one neuron over multiple trials, it can display a population of neuron’s responses, where each row shows the responses of a single neuron.  See Figure 3 for an example of this. This figure, from <a class="reference external" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0105324">Ito et al, PLoS ONE 2014</a>, represents the spiking responses of simultaneously recorded neurons in cortico-hippocampal brain slices from mice. In this data, there are no trials, this is just recordings over a period of time.</p>
+<a class="reference internal image-reference" href="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Itoetal.png?raw=True"><img alt="rasterplotexample1" src="https://github.com/ebatty/EncodingDecodingNotes/blob/main/images/Itoetal.png?raw=True" style="width: 600px;" /></a>
+<p><em>Figure 2: A raster plot with rows as different neurons, from <a class="reference external" href="https://journals.plos.org/plosone/article?id=10.1371/journal.pone.0105324">Ito et al, PLoS ONE 2014</a>, under <a class="reference external" href="https://creativecommons.org/licenses/by/4.0/">CC-BY 4.0</a></em></p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What can you conclude about the neurons recorded in cortico-hippocampal slices shown in Figure 2?</p>
+<p>From the raster in Figure 2, you can conclude that the neurons in the population are synchronized: there are periods of time when all neurons are spiking (indicated by red arrows), and periods of time when all neurons are silent.</p>
+</div>
+<p><strong>Coding Corner</strong></p>
+<p>We can create raster plots in matplotlib by using <a class="reference external" href="https://matplotlib.org/stable/api/_as_gen/matplotlib.pyplot.eventplot.html"><code class="docutils literal notranslate"><span class="pre">plt.eventplot</span></code></a>.</p>
+<p>The first argument is a list of arrays, where each array contains the spike times for that row of the raster. For example, if you are plotting multiple trials of one neuron, each array would contain the spike times of one trial.</p>
+<p>For example, in the raster plot created below, the neuron spiked at 5.4 milliseconds, 11.1 ms, 15.6 ms, 16.7 ms, and 27.8 ms in trial 1. In trial 2, it spiked at 1.4 ms, 11.9 ms, 15.9 ms, 17.7 ms, and 28 ms.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Set up spike time data</span>
+<span class="n">all_sp_time_list</span> <span class="o">=</span> <span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">17.82</span><span class="p">,</span> <span class="mf">36.63</span><span class="p">,</span> <span class="mf">51.48</span><span class="p">,</span> <span class="mf">55.11</span><span class="p">,</span> <span class="mf">91.74</span><span class="p">]),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">4.62</span><span class="p">,</span> <span class="mf">39.27</span><span class="p">,</span> <span class="mf">52.47</span><span class="p">,</span> <span class="mf">58.41</span><span class="p">,</span> <span class="mf">92.4</span><span class="p">]),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">28.38</span><span class="p">,</span> <span class="mf">34.98</span><span class="p">,</span> <span class="mf">43.56</span><span class="p">,</span> <span class="mf">46.86</span><span class="p">,</span> <span class="mf">89.1</span><span class="p">]),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mf">29.37</span><span class="p">,</span> <span class="mf">39.27</span><span class="p">,</span> <span class="mf">42.57</span><span class="p">,</span> <span class="mf">47.85</span><span class="p">,</span> <span class="mf">86.79</span><span class="p">]),</span>
+                    <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span> <span class="mf">1.32</span><span class="p">,</span> <span class="mf">27.06</span><span class="p">,</span> <span class="mf">34.98</span><span class="p">,</span> <span class="mf">43.56</span><span class="p">,</span> <span class="mf">55.77</span><span class="p">,</span> <span class="mf">92.4</span><span class="p">])]</span>
+
+<span class="c1"># Make raster of this data</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+
+<span class="c1"># Label x and y axes (with units!)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time (ms)&#39;</span><span class="p">,</span> 
+       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Trial Number&#39;</span><span class="p">,</span>
+       <span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">100</span><span class="p">],</span>
+       <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">],</span>
+       <span class="n">yticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+       <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_17_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_17_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="section-2-2-psths">
+<h2>Section 2.2: PSTHs<a class="headerlink" href="#section-2-2-psths" title="Permalink to this headline">¶</a></h2>
+<p>We can summarize the information over trials contained in a raster plot in a peri-stimulus time histogram (PSTH), also sometimes called a peri-event time histogram (PETH). In this plot, we want to show the average underlying firing rate over time. To do that, we need to use discrete chunks of time - we divide time into time bins of some length. For each time bin, we can then count the number of spikes in that time bin over all the trials. We can then get the average spikes/bin for that time bin during the trial as the the number of spikes divided by the number of trials. We can convert to spikes/second by dividing by the bin length in seconds.</p>
+<p>See Figure 3 for an example of the construction of a PSTH from 5 trials of neural data, where each trial is just 30 ms long. We use a bin width of 5 ms - the red vertical lines denote the bin edges. We then count up the number of spikes over all the trials (2 for the first time bin), divide by the number of trials (to get to 2/5 for the first time bin), and that is our average firing rate in spikes/bin for that part of the trial.</p>
+<p><strong>Advanced coding challenge!</strong></p>
+<p>Using the data in <code class="docutils literal notranslate"><span class="pre">all_sp_time_list</span></code> (defined above), compute the PSTH for a bin size of 5 ms. Make <code class="docutils literal notranslate"><span class="pre">PSTH</span></code> an array of shape (n_bins, ), where each element is the firing rate in terms of spikes/second for that bin.</p>
+<p>Click to see a solution</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Click to see a solution</span>
+
+<span class="c1">## Keep in mind there are lots of ways of doing this!</span>
+
+<span class="c1"># Define bin width</span>
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span>
+
+<span class="c1"># Create bin edges</span>
+<span class="n">bin_edge_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">30.1</span><span class="p">,</span> <span class="n">bin_width</span><span class="p">)</span>
+
+<span class="c1"># Concatenate all spike times into one array</span>
+<span class="n">concat_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span>
+
+<span class="c1"># Get number of spikes in each bin</span>
+<span class="n">PSTH</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">concat_spikes</span><span class="p">,</span> <span class="n">bins</span><span class="o">=</span><span class="n">bin_edge_times</span><span class="p">)</span> 
+
+<span class="c1"># Divide by number of trials and bin length to get spikes/second</span>
+<span class="c1">#PSTH = PSTH/(len(all_sp_time_list) * (bin_width/1000))</span>
+<span class="c1"># PSTH is an array of shape (6,) </span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown </span>
+
+<span class="k">def</span> <span class="nf">plot_raster_and_PSTH</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">bin_edge_times</span><span class="p">,</span> <span class="n">binned_spikes</span><span class="p">):</span>
+  <span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">7</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+
+  <span class="c1"># Make raster of this data</span>
+  <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+  <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Trial Number&#39;</span><span class="p">,</span>
+        <span class="n">xlim</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">],</span>
+        <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">],</span>
+        <span class="n">yticks</span> <span class="o">=</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">],</span>
+        <span class="n">yticklabels</span> <span class="o">=</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="mi">5</span><span class="p">]);</span>
+
+  <span class="c1"># Plot bin vertical lines </span>
+  <span class="k">for</span> <span class="n">bin_time</span> <span class="ow">in</span> <span class="n">bin_edge_times</span><span class="p">:</span>
+    <span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="n">bin_time</span><span class="p">,</span> <span class="n">bin_time</span><span class="p">],</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">4.7</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+
+  <span class="c1"># Plot PSTH</span>
+  <span class="n">x_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">30</span><span class="p">,</span> <span class="mf">.1</span><span class="p">)</span>
+  <span class="n">y_vals</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">x_vals</span><span class="p">)))</span>
+  <span class="k">for</span> <span class="n">i_bin</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">bin_edge_times</span><span class="p">)</span> <span class="o">-</span> <span class="mi">1</span><span class="p">):</span>
+    <span class="n">y_vals</span><span class="p">[(</span><span class="n">x_vals</span> <span class="o">&gt;</span> <span class="n">bin_edge_times</span><span class="p">[</span><span class="n">i_bin</span><span class="p">])</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">x_vals</span> <span class="o">&lt;=</span> <span class="n">bin_edge_times</span><span class="p">[</span><span class="n">i_bin</span> <span class="o">+</span> <span class="mi">1</span><span class="p">])]</span> <span class="o">=</span> <span class="n">binned_spikes</span><span class="p">[</span><span class="n">i_bin</span><span class="p">]</span> <span class="o">/</span> <span class="mi">5</span>
+
+  <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">x_vals</span><span class="p">,</span> <span class="n">y_vals</span><span class="p">,</span>  <span class="s1">&#39;k&#39;</span><span class="p">);</span>
+  <span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time (ms)&#39;</span><span class="p">,</span> 
+              <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Firing rate (spikes/bin)&#39;</span><span class="p">);</span>
+
+
+<span class="c1"># Compute PSTH</span>
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mi">5</span>
+<span class="n">bin_edge_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">30.1</span><span class="p">,</span> <span class="n">bin_width</span><span class="p">)</span>
+<span class="n">binned_spikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">bin_edge_times</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">plot_raster_and_PSTH</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">bin_edge_times</span><span class="p">,</span> <span class="n">binned_spikes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_23_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_23_0.png" />
+</div>
+</div>
+<p><em>Figure 3: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 5 ms.</em></p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What would happen if you choose a bin width that’s too big? Too small?</p>
+<p>Too big a bin and you might lose temporal information in the neural reponses because you’re summing spikes over a long period of time. Too small a bin and the PSTH could be hard to interpret. For example, imagine if you chose a time bin small enough that there was almost always at most 1 spike in each, even across all trials. The PSTH would not convey much information. See Figures 4 and 5 to see too big a bin width and too small a bin width, respectively.</p>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown </span>
+
+<span class="c1"># Compute PSTH</span>
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mi">15</span>
+<span class="n">bin_edge_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">30.1</span><span class="p">,</span> <span class="n">bin_width</span><span class="p">)</span>
+<span class="n">binned_spikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">bin_edge_times</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">plot_raster_and_PSTH</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">bin_edge_times</span><span class="p">,</span> <span class="n">binned_spikes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_27_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_27_0.png" />
+</div>
+</div>
+<p><em>Figure 4: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 15 ms. This bin width is too large and you lose a lot of temporal information!</em></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown </span>
+
+<span class="c1"># Compute PSTH</span>
+<span class="n">bin_width</span> <span class="o">=</span> <span class="mf">.5</span>
+<span class="n">bin_edge_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mf">30.1</span><span class="p">,</span> <span class="n">bin_width</span><span class="p">)</span>
+<span class="n">binned_spikes</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">0</span><span class="p">),</span> <span class="n">bins</span> <span class="o">=</span> <span class="n">bin_edge_times</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">plot_raster_and_PSTH</span><span class="p">(</span><span class="n">all_sp_time_list</span><span class="p">,</span> <span class="n">bin_edge_times</span><span class="p">,</span> <span class="n">binned_spikes</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_30_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_30_0.png" />
+</div>
+</div>
+<p><em>Figure 5: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of .5 ms. This bin width is too small - the PSTH conveys a lot about the exact spike timings in this set of trials but doesn’t give us a sense of how the underlying firing rate is changing over time</em></p>
+<p>add interactive viz</p>
+<p>Let’s return to our proposed experiment. We have recorded the spike times of a motor neuron in a monkey while that monkey reaches in 8 different directions. We have plotted the raster plots given multiple trials of a reach in each direction, see Figure 6 below.</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown</span>
+
+<span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">seed</span><span class="p">(</span><span class="mi">123</span><span class="p">)</span>
+
+<span class="c1"># Set up parameters for faking data</span>
+<span class="n">n_trials</span> <span class="o">=</span> <span class="mi">10</span>
+<span class="n">angles</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">0</span><span class="p">,</span> <span class="mi">45</span><span class="p">,</span> <span class="mi">90</span><span class="p">,</span> <span class="mi">135</span><span class="p">,</span> <span class="mi">180</span><span class="p">,</span> <span class="mi">225</span><span class="p">,</span> <span class="mi">270</span><span class="p">,</span> <span class="mi">315</span><span class="p">])</span>
+<span class="n">firing_rates</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">([</span><span class="mi">5</span><span class="p">,</span> <span class="mi">8</span><span class="p">,</span> <span class="mi">40</span><span class="p">,</span> <span class="mi">54</span><span class="p">,</span> <span class="mi">55</span><span class="p">,</span> <span class="mi">38</span><span class="p">,</span> <span class="mi">24</span><span class="p">,</span> <span class="mi">8</span><span class="p">])</span>
+
+<span class="c1"># Loop over angles &amp; fake data</span>
+<span class="n">reach_sp_times</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="k">for</span> <span class="n">i_angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+    <span class="n">reach_firing_rates</span> <span class="o">=</span> <span class="mi">15</span><span class="o">*</span><span class="n">np</span><span class="o">.</span><span class="n">ones</span><span class="p">((</span><span class="mi">1500</span><span class="p">))</span>
+    <span class="n">reach_firing_rates</span><span class="p">[(</span><span class="mi">750</span> <span class="o">-</span> <span class="mi">250</span><span class="p">):(</span><span class="mi">750</span> <span class="o">+</span> <span class="mi">250</span><span class="p">)]</span> <span class="o">=</span> <span class="n">firing_rates</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span>
+
+    <span class="n">bin_width</span> <span class="o">=</span> <span class="mi">1</span><span class="o">/</span><span class="mi">1000</span>
+
+    <span class="n">all_sp_time_list</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">i_trial</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="n">n_trials</span><span class="p">):</span>
+
+        <span class="n">binned_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">reach_firing_rates</span> <span class="o">*</span> <span class="n">bin_width</span><span class="p">)</span>
+        <span class="n">sp_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">binned_spikes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+        <span class="n">all_sp_time_list</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">sp_times</span><span class="p">)</span>
+
+    <span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">=</span> <span class="n">all_sp_time_list</span>
+
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">4</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">17</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">axes</span> <span class="o">=</span> <span class="n">axes</span><span class="o">.</span><span class="n">flatten</span><span class="p">()</span>
+<span class="k">for</span> <span class="n">i_angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">8</span><span class="p">):</span>
+
+    <span class="n">axes</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">],</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">750</span><span class="p">,</span> <span class="mi">750</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+    <span class="n">axes</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span>
+       <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">10.7</span><span class="p">],</span>
+       <span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+       <span class="n">yticklabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+       <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="si">}</span><span class="s1"> degrees&#39;</span><span class="p">);</span>
+    
+    <span class="k">if</span> <span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">&gt;</span> <span class="mi">135</span><span class="p">:</span>
+      <span class="n">axes</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time (ms)&#39;</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">==</span> <span class="mi">0</span> <span class="ow">or</span> <span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">==</span> <span class="mi">180</span><span class="p">:</span>
+      <span class="n">axes</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Trials&#39;</span><span class="p">)</span>
+
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_35_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_35_0.png" />
+</div>
+</div>
+<p><em>Figure 6: Raster plots of motor neuron response for 10 trials for each reach condition. Please note that this is faked data for illustrative purposes. The blue vertical line indicates the start of each reach.</em></p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> Based on Figure 6, what directions of reach does this neuron fire a lot to? What directions of reach does it not respond for?</p>
+<p>The neuron fires a lot when the monkey is reaching at 135 and 180 degrees. It responds much less for 0 degrees and 315 degrees.</p>
+</div>
+<p><strong>smoothing PSTHs</strong></p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-3-tuning-curves">
+<h1>Section 3: Tuning curves<a class="headerlink" href="#section-3-tuning-curves" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-3-1-plotting-tuning-curves">
+<h2>Section 3.1: Plotting tuning curves<a class="headerlink" href="#section-3-1-plotting-tuning-curves" title="Permalink to this headline">¶</a></h2>
+<p>We can summarize how the neuron responds to different reach directions by creating a tuning curve. We want to plot the average firing rate of the neuron for each reach direction vs the reach direction.</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> How could we get the average firing rate of the neuron for a certain reach?</p>
+<p>First, we choose some time window around reach onset. We then count up the spikes over all trials in that time window and divide by both the number of trials and the length of the time window to get firing rate in terms of spikes per second.</p>
+</div>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown</span>
+
+<span class="n">i_angle</span> <span class="o">=</span> <span class="mi">4</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">],</span> <span class="n">colors</span> <span class="o">=</span> <span class="s1">&#39;black&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">750</span><span class="p">,</span> <span class="mi">750</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;b&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">500</span><span class="p">,</span> <span class="mi">500</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">([</span><span class="mi">1000</span><span class="p">,</span> <span class="mi">1000</span><span class="p">],</span> <span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s1">&#39;r&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time (ms)&#39;</span><span class="p">,</span> 
+    <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Trial Number&#39;</span><span class="p">,</span>
+    <span class="n">ylim</span> <span class="o">=</span> <span class="p">[</span><span class="o">-</span><span class="mf">.7</span><span class="p">,</span> <span class="mf">10.7</span><span class="p">],</span>
+    <span class="n">yticks</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">yticklabels</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">11</span><span class="p">,</span> <span class="mi">2</span><span class="p">),</span>
+    <span class="n">title</span> <span class="o">=</span> <span class="sa">f</span><span class="s1">&#39;</span><span class="si">{</span><span class="n">angles</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span><span class="si">}</span><span class="s1"> degrees&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_43_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_43_0.png" />
+</div>
+</div>
+<p><em>Figure 7: Raster plot for reaches to 180 degrees. The blue vertical line indicates the start of the reach, the red vertical lines indicate start and end of time window for computing average firing rate</em></p>
+<p>For this data, we will choose a 500 ms time window: 250 ms before reach onset and 250 ms after. In Figure 7, the raster plot of reaches to 180 degrees, the beginning and end of this time window are shown with red vertical lines. In this 500 ms time bin, 287 spikes occur over the 10 trials. So the average firing rate is 287 spikes / .5 s / 10 trials = 57.4 spikes per second.</p>
+<p>We can repeat this computation for all reach directions and plot our tuning curve (firing rate vs reach direction), as seen in Figure 8.</p>
+<p><strong>coding challenge</strong></p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown</span>
+
+<span class="c1"># Compute tuning curve data</span>
+<span class="n">av_firing_rate</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">),))</span>
+<span class="k">for</span> <span class="n">i_angle</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">angles</span><span class="p">)):</span>
+  <span class="n">all_sp_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">concatenate</span><span class="p">(</span><span class="n">reach_sp_times</span><span class="p">[</span><span class="n">i_angle</span><span class="p">])</span>
+  <span class="n">sp_count</span> <span class="o">=</span> <span class="p">((</span><span class="n">all_sp_times</span> <span class="o">&gt;</span> <span class="mi">500</span><span class="p">)</span> <span class="o">&amp;</span> <span class="p">(</span><span class="n">all_sp_times</span> <span class="o">&lt;</span> <span class="mi">1000</span><span class="p">))</span><span class="o">.</span><span class="n">sum</span><span class="p">()</span>
+  <span class="n">av_firing_rate</span><span class="p">[</span><span class="n">i_angle</span><span class="p">]</span> <span class="o">=</span> <span class="n">sp_count</span> <span class="o">/</span> <span class="mf">.5</span> <span class="o">/</span> <span class="n">n_trials</span>
+
+<span class="c1"># Visualize </span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">sharey</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">angles</span><span class="p">,</span> <span class="n">av_firing_rate</span><span class="p">,</span> <span class="s1">&#39;ok&#39;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Angle of reach (degrees)&#39;</span><span class="p">,</span>
+       <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Firing rate (Hz)&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/01_NeuralResponses&amp;TuningCurves_48_0.png" src="../_images/01_NeuralResponses&amp;TuningCurves_48_0.png" />
+</div>
+</div>
+<p><em>Figure 8: A tuning curve showing the average firing rate of the neuron to each reach direction.</em></p>
+</div>
+<div class="section" id="section-3-2-parameterizing-tuning-curves">
+<h2>Section 3.2: Parameterizing tuning curves<a class="headerlink" href="#section-3-2-parameterizing-tuning-curves" title="Permalink to this headline">¶</a></h2>
+<p>As you can see from Figure 8, this plot of firing rate vs reach direction quickly helps us see the “tuning” of the neuron, or how it’s response varies across reach directions. This neuron is responding the most to degrees around 180, with smaller responses to higher and lower angles of reach.</p>
+<p>We can summarize this information even more efficiently by doing some curve fitting. It turns out that the tuning of motor cortex neurons can be described well with a cosine curve. In particular, we can model the firing rate for each angle as:</p>
+<div class="math notranslate nohighlight">
+\[f(a) = r_0 + (r_{max} - r_0) cos(a - a_{max})\]</div>
+<p><span class="math notranslate nohighlight">\(a\)</span>: reaching angle</p>
+<p><span class="math notranslate nohighlight">\(a_{max}\)</span>: reaching angle associated with highest response</p>
+<p><span class="math notranslate nohighlight">\(r_{max}\)</span>: maximum response</p>
+<p><span class="math notranslate nohighlight">\(r_0\)</span>: offset or background firing rate</p>
+<p>We fit this equation for a particular neuron by finding the values of <span class="math notranslate nohighlight">\(a_{max}\)</span>, <span class="math notranslate nohighlight">\(r_{max}\)</span>, and <span class="math notranslate nohighlight">\(r_0\)</span> that match this curve closely to the data points. We can then quickly summarize the tuning of each neuron with these fitted parameters.</p>
+</div>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ebatty/IntroCompNeuro",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="../intro.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">Introduction</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Ella Batty<br/>
+    
+        &copy; Copyright 2021.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
