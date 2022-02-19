@@ -268,6 +268,97 @@
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">show</span>
+<span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">CustomJS</span><span class="p">,</span> <span class="n">Slider</span>
+
+<span class="n">slider</span> <span class="o">=</span> <span class="n">Slider</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Stuff&quot;</span><span class="p">)</span>
+<span class="n">slider</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+<span class="s2">    console.log(&#39;slider: value=&#39; + this.value, this.toString())</span>
+<span class="s2">&quot;&quot;&quot;</span><span class="p">))</span>
+
+<span class="n">show</span><span class="p">(</span><span class="n">slider</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1662</span><span class="o">/</span><span class="mf">3562348508.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">from</span> <span class="nn">bokeh.io</span> <span class="kn">import</span> <span class="n">show</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">from</span> <span class="nn">bokeh.models</span> <span class="kn">import</span> <span class="n">CustomJS</span><span class="p">,</span> <span class="n">Slider</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="n">slider</span> <span class="o">=</span> <span class="n">Slider</span><span class="p">(</span><span class="n">start</span><span class="o">=</span><span class="mi">0</span><span class="p">,</span> <span class="n">end</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span> <span class="n">value</span><span class="o">=</span><span class="mi">1</span><span class="p">,</span> <span class="n">step</span><span class="o">=</span><span class="mf">.1</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Stuff&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">slider</span><span class="o">.</span><span class="n">js_on_change</span><span class="p">(</span><span class="s2">&quot;value&quot;</span><span class="p">,</span> <span class="n">CustomJS</span><span class="p">(</span><span class="n">code</span><span class="o">=</span><span class="s2">&quot;&quot;&quot;</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;bokeh&#39;
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+
+<span class="c1"># Create figure</span>
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="c1"># Add traces, one for each slider step</span>
+<span class="k">for</span> <span class="n">step</span> <span class="ow">in</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">):</span>
+    <span class="n">fig</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span>
+        <span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+            <span class="n">visible</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;#00CED1&quot;</span><span class="p">,</span> <span class="n">width</span><span class="o">=</span><span class="mi">6</span><span class="p">),</span>
+            <span class="n">name</span><span class="o">=</span><span class="s2">&quot;𝜈 = &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">step</span><span class="p">),</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">),</span>
+            <span class="n">y</span><span class="o">=</span><span class="n">np</span><span class="o">.</span><span class="n">sin</span><span class="p">(</span><span class="n">step</span> <span class="o">*</span> <span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="mi">0</span><span class="p">,</span> <span class="mi">10</span><span class="p">,</span> <span class="mf">0.01</span><span class="p">))))</span>
+
+<span class="c1"># Make 10th trace visible</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">[</span><span class="mi">10</span><span class="p">]</span><span class="o">.</span><span class="n">visible</span> <span class="o">=</span> <span class="kc">True</span>
+
+<span class="c1"># Create and add slider</span>
+<span class="n">steps</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">)):</span>
+    <span class="n">step</span> <span class="o">=</span> <span class="nb">dict</span><span class="p">(</span>
+        <span class="n">method</span><span class="o">=</span><span class="s2">&quot;update&quot;</span><span class="p">,</span>
+        <span class="n">args</span><span class="o">=</span><span class="p">[{</span><span class="s2">&quot;visible&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">False</span><span class="p">]</span> <span class="o">*</span> <span class="nb">len</span><span class="p">(</span><span class="n">fig</span><span class="o">.</span><span class="n">data</span><span class="p">)},</span>
+              <span class="p">{</span><span class="s2">&quot;title&quot;</span><span class="p">:</span> <span class="s2">&quot;Slider switched to step: &quot;</span> <span class="o">+</span> <span class="nb">str</span><span class="p">(</span><span class="n">i</span><span class="p">)}],</span>  <span class="c1"># layout attribute</span>
+    <span class="p">)</span>
+    <span class="n">step</span><span class="p">[</span><span class="s2">&quot;args&quot;</span><span class="p">][</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;visible&quot;</span><span class="p">][</span><span class="n">i</span><span class="p">]</span> <span class="o">=</span> <span class="kc">True</span>  <span class="c1"># Toggle i&#39;th trace to &quot;visible&quot;</span>
+    <span class="n">steps</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">step</span><span class="p">)</span>
+
+<span class="n">sliders</span> <span class="o">=</span> <span class="p">[</span><span class="nb">dict</span><span class="p">(</span>
+    <span class="n">active</span><span class="o">=</span><span class="mi">10</span><span class="p">,</span>
+    <span class="n">currentvalue</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;prefix&quot;</span><span class="p">:</span> <span class="s2">&quot;Frequency: &quot;</span><span class="p">},</span>
+    <span class="n">pad</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;t&quot;</span><span class="p">:</span> <span class="mi">50</span><span class="p">},</span>
+    <span class="n">steps</span><span class="o">=</span><span class="n">steps</span>
+<span class="p">)]</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">sliders</span><span class="o">=</span><span class="n">sliders</span>
+<span class="p">)</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">ModuleNotFoundError</span><span class="g g-Whitespace">                       </span>Traceback (most recent call last)
+<span class="o">/</span><span class="n">tmp</span><span class="o">/</span><span class="n">ipykernel_1662</span><span class="o">/</span><span class="mf">236017579.</span><span class="n">py</span> <span class="ow">in</span> <span class="o">&lt;</span><span class="n">module</span><span class="o">&gt;</span>
+<span class="ne">----&gt; </span><span class="mi">1</span> <span class="kn">import</span> <span class="nn">plotly.graph_objects</span> <span class="k">as</span> <span class="nn">go</span>
+<span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="g g-Whitespace">      </span><span class="mi">3</span> 
+<span class="g g-Whitespace">      </span><span class="mi">4</span> <span class="c1"># Create figure</span>
+<span class="g g-Whitespace">      </span><span class="mi">5</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+
+<span class="ne">ModuleNotFoundError</span>: No module named &#39;plotly&#39;
+</pre></div>
+</div>
+</div>
+</div>
 <div class="section" id="section-1-experimental-set-up">
 <h2>Section 1: Experimental set-up<a class="headerlink" href="#section-1-experimental-set-up" title="Permalink to this headline">¶</a></h2>
 <p>In the next few sections, we will cover important concepts in the context of a case study. In this case study, you are a computational neuroscientist and you have a hypothesis that some neurons in monkey motor cortex correlate with the direction of arm movement while reaching. By this, you mean that a particular neuron will fire more when the monkey reaches in certain directions than others.</p>
@@ -362,7 +453,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_19_0.png" src="../_images/01_VisualizingNeuralResponses_19_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_21_0.png" src="../_images/01_VisualizingNeuralResponses_21_0.png" />
 </div>
 </div>
 <p><em>Figure 3: Example raster plot with red vertical lines indicating 20 ms bins</em></p>
@@ -445,7 +536,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_25_0.png" src="../_images/01_VisualizingNeuralResponses_25_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_27_0.png" src="../_images/01_VisualizingNeuralResponses_27_0.png" />
 </div>
 </div>
 <p><em>Figure 3: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 5 ms.</em></p>
@@ -468,7 +559,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_29_0.png" src="../_images/01_VisualizingNeuralResponses_29_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_31_0.png" src="../_images/01_VisualizingNeuralResponses_31_0.png" />
 </div>
 </div>
 <p><em>Figure 4: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of 15 ms. This bin width is too large and you lose a lot of temporal information!</em></p>
@@ -487,7 +578,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_32_0.png" src="../_images/01_VisualizingNeuralResponses_32_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_34_0.png" src="../_images/01_VisualizingNeuralResponses_34_0.png" />
 </div>
 </div>
 <p><em>Figure 5: PSTH (bottom row) constructed from a raster plot (top row) with a bin width of .5 ms. This bin width is too small - the PSTH conveys a lot about the exact spike timings in this set of trials but doesn’t give us a sense of how the underlying firing rate is changing over time</em></p>
@@ -546,7 +637,7 @@
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../_images/01_VisualizingNeuralResponses_37_0.png" src="../_images/01_VisualizingNeuralResponses_37_0.png" />
+<img alt="../_images/01_VisualizingNeuralResponses_39_0.png" src="../_images/01_VisualizingNeuralResponses_39_0.png" />
 </div>
 </div>
 <p><em>Figure 6: Raster plots of motor neuron response for 10 trials for each reach condition. Please note that this is faked data for illustrative purposes. The blue vertical line indicates the start of each reach.</em></p>
