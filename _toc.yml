@@ -1,0 +1,6 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Neural Coding
+    chapters:
+    - file: Notes/01_NeuralResponses&TuningCurves.ipynb
