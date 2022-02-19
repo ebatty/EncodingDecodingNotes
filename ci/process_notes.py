@@ -145,7 +145,7 @@ def link_hidden_cells(content):
                     i_updated_cell += 1
 
             strings_with_markdown = [(i, string) for i, string in enumerate(cell['source']) if '@markdown' in string]
-            if len(strings_with_markdown) == 1:
+            if len(strings_with_markdown) == 1 and 'solution' not in strings_with_markdown[0][1]:
                 i = strings_with_markdown[0][0]
                 if cell['source'][i].split('@markdown')[1] != '':
                     header_cell = {
