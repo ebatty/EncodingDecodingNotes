@@ -33,9 +33,43 @@ def pre_process_notebook(file_path):
     pre_processed_content = change_video_widths(pre_processed_content)
     pre_processed_content = link_hidden_cells(pre_processed_content)
     pre_processed_content = make_stop_and_thinks(pre_processed_content)
+    pre_processed_content = make_coding_corners(pre_processed_content)
 
     with open(file_path, "w", encoding="utf-8") as write_notebook:
         json.dump(pre_processed_content, write_notebook, indent=1, ensure_ascii=False)
+
+
+def make_coding_corners(content):
+    cells = content['cells']
+    updated_cells = cells.copy()
+
+    i_updated_cell = 0
+    for i_cell, cell in enumerate(cells):
+        if cell['source'][0].startswith("**Coding Corner!**"):
+
+            # Get next cell containing Python code
+            python_code = cells[i_cell + 1]['source']
+
+            # Switch order of text & code cell
+            updated_cells[i_cell] = cells[i_cell + 1]
+            updated_cells[i_cell + 1] = cells[i_cell]
+
+            # Make dropdown
+            updated_cells[i_cell + 1]['source'] = [f'````{{admonition}} Coding Corner! \n',
+                                               ':class: note, dropdown\n'] + cell['source'][1:] + \
+                                              ['```{code-block} python \n'] + python_code + ['\n```\n']
+
+            # If figure generated, glue it
+            updated_cells[i_cell]['source'] += ['\nglue("fig", fig, display=False)']
+            updated_cells[i_cell + 1]['source'] += ['This code outputs the following plot\n',
+                                                    '```{glue:figure} fig \n',
+                                                    '```\n']
+
+
+            updated_cells[i_cell + 1]['source'] += ['````']
+            updated_cells[i_cell]['metadata']['tags'] = ['remove-cell']
+    content['cells'] = updated_cells
+    return content
 
 def make_stop_and_thinks(content):
     cells = content['cells']
