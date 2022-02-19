@@ -60,14 +60,15 @@ def make_coding_corners(content):
                                               ['```{code-block} python \n'] + python_code + ['\n```\n']
 
             # If figure generated, glue it
-            updated_cells[i_cell]['source'] += ['\nglue("fig", fig, display=False)']
-            updated_cells[i_cell + 1]['source'] += ['This code outputs the following plot\n',
-                                                    '```{glue:figure} fig \n',
+            if 'fig' in '\t'.join(updated_cells[i_cell]['source']):
+                updated_cells[i_cell]['source'] += ['\nglue("fig", fig, display=False)']
+                updated_cells[i_cell + 1]['source'] += ['This code outputs the following plot\n',
+                                                        '```{glue:figure} fig \n',
                                                     '```\n']
 
 
             updated_cells[i_cell + 1]['source'] += ['````']
-            #updated_cells[i_cell]['metadata']['tags'] = ['remove-cell']
+            updated_cells[i_cell]['metadata']['tags'] = ['remove-cell']
     content['cells'] = updated_cells
     return content
 
