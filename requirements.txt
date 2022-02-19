@@ -3,4 +3,4 @@ scipy
 matplotlib
 ipywidgets
 decorator==5.0.9
-jupyter-book
+jupyter-book==0.12.1
