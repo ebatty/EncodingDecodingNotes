@@ -1,0 +1,802 @@
+
+<!DOCTYPE html>
+
+<html>
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>03 - Spike Triggered Averages &#8212; Encoding &amp; Decoding</title>
+    
+  <link href="../_static/css/theme.css" rel="stylesheet">
+  <link href="../_static/css/index.ff1ffe594081f20da1ef19478df9384b.css" rel="stylesheet">
+
+    
+  <link rel="stylesheet"
+    href="../_static/vendor/fontawesome/5.13.0/css/all.min.css">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-solid-900.woff2">
+  <link rel="preload" as="font" type="font/woff2" crossorigin
+    href="../_static/vendor/fontawesome/5.13.0/webfonts/fa-brands-400.woff2">
+
+    
+      
+
+    
+    <link rel="stylesheet" type="text/css" href="../_static/pygments.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-book-theme.css?digest=c3fdc42140077d1ad13ad2f1588a4309" />
+    <link rel="stylesheet" type="text/css" href="../_static/togglebutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/copybutton.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/mystnb.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/sphinx-thebe.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-main.c949a650a448cc0ae9fd3441c0e17fb0.css" />
+    <link rel="stylesheet" type="text/css" href="../_static/panels-variables.06eb56fa6e07937060861dad626602ad.css" />
+    
+  <link rel="preload" as="script" href="../_static/js/index.be7d3bbb2ef33a8344ce.js">
+
+    <script data-url_root="../" id="documentation_options" src="../_static/documentation_options.js"></script>
+    <script src="../_static/jquery.js"></script>
+    <script src="../_static/underscore.js"></script>
+    <script src="../_static/doctools.js"></script>
+    <script src="../_static/clipboard.min.js"></script>
+    <script src="../_static/copybutton.js"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../_static/togglebutton.js"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown, .tag_hide_input div.cell_input, .tag_hide-input div.cell_input, .tag_hide_output div.cell_output, .tag_hide-output div.cell_output, .tag_hide_cell.cell, .tag_hide-cell.cell';</script>
+    <script src="../_static/sphinx-book-theme.d59cb220de22ca1c485ebbdc042f0030.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <script src="https://unpkg.com/@jupyter-widgets/html-manager@^0.20.0/dist/embed-amd.js"></script>
+    <script>window.MathJax = {"options": {"processHtmlClass": "tex2jax_process|mathjax_process|math|output_area"}}</script>
+    <script defer="defer" src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js"></script>
+    <script async="async" src="https://unpkg.com/thebe@0.5.1/lib/index.js"></script>
+    <script>
+        const thebe_selector = ".thebe,.cell"
+        const thebe_selector_input = "pre,.cell_input div.highlight"
+        const thebe_selector_output = ".output,.cell_output"
+    </script>
+    <script async="async" src="../_static/sphinx-thebe.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/require.js/2.3.4/require.min.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="prev" title="02 - Tuning Curves" href="02_TuningCurves.html" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="docsearch:language" content="None">
+    
+
+    <!-- Google Analytics -->
+    
+  </head>
+  <body data-spy="scroll" data-target="#bd-toc-nav" data-offset="80">
+    
+    <div class="container-fluid" id="banner"></div>
+
+    
+
+    <div class="container-xl">
+      <div class="row">
+          
+<div class="col-12 col-md-3 bd-sidebar site-navigation show" id="site-navigation">
+    
+        <div class="navbar-brand-box">
+    <a class="navbar-brand text-wrap" href="../index.html">
+      
+      
+      
+      <h1 class="site-logo" id="site-title">Encoding & Decoding</h1>
+      
+    </a>
+</div><form class="bd-search d-flex align-items-center" action="../search.html" method="get">
+  <i class="icon fas fa-search"></i>
+  <input type="search" class="form-control" name="q" id="search-input" placeholder="Search this book..." aria-label="Search this book..." autocomplete="off" >
+</form><nav class="bd-links" id="bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item active">
+        <ul class="nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="../intro.html">
+   Introduction
+  </a>
+ </li>
+</ul>
+<p aria-level="2" class="caption" role="heading">
+ <span class="caption-text">
+  Neural Coding
+ </span>
+</p>
+<ul class="current nav bd-sidenav">
+ <li class="toctree-l1">
+  <a class="reference internal" href="01_VisualizingNeuralResponses.html">
+   01 - Visualizing Neural Responses
+  </a>
+ </li>
+ <li class="toctree-l1">
+  <a class="reference internal" href="02_TuningCurves.html">
+   02 -  Tuning Curves
+  </a>
+ </li>
+ <li class="toctree-l1 current active">
+  <a class="current reference internal" href="#">
+   03 - Spike Triggered Averages
+  </a>
+ </li>
+</ul>
+
+    </div>
+</nav> <!-- To handle the deprecated key -->
+
+<div class="navbar_extra_footer">
+  Powered by <a href="https://jupyterbook.org">Jupyter Book</a>
+</div>
+
+</div>
+
+
+          
+
+
+          
+<main class="col py-md-3 pl-md-4 bd-content overflow-auto" role="main">
+    
+    <div class="topbar container-xl fixed-top">
+    <div class="topbar-contents row">
+        <div class="col-12 col-md-3 bd-topbar-whitespace site-navigation show"></div>
+        <div class="col pl-md-4 topbar-main">
+            
+            <button id="navbar-toggler" class="navbar-toggler ml-0" type="button" data-toggle="collapse"
+                data-toggle="tooltip" data-placement="bottom" data-target=".site-navigation" aria-controls="navbar-menu"
+                aria-expanded="true" aria-label="Toggle navigation" aria-controls="site-navigation"
+                title="Toggle navigation" data-toggle="tooltip" data-placement="left">
+                <i class="fas fa-bars"></i>
+                <i class="fas fa-arrow-left"></i>
+                <i class="fas fa-arrow-up"></i>
+            </button>
+            
+            
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn" aria-label="Download this page"><i
+            class="fas fa-download"></i></button>
+
+    <div class="dropdown-buttons">
+        <!-- ipynb file if we had a myst markdown file -->
+        
+        <!-- Download raw file -->
+        <a class="dropdown-buttons" href="../_sources/Notes/03_SpikeTriggeredAverages.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Download source file" data-toggle="tooltip"
+                data-placement="left">.ipynb</button></a>
+        <!-- Download PDF via print -->
+        <button type="button" id="download-print" class="btn btn-secondary topbarbtn" title="Print to PDF"
+                onclick="printPdf(this)" data-toggle="tooltip" data-placement="left">.pdf</button>
+    </div>
+</div>
+
+            <!-- Source interaction buttons -->
+
+            <!-- Full screen (wrap in <a> to have style consistency -->
+
+<a class="full-screen-button"><button type="button" class="btn btn-secondary topbarbtn" data-toggle="tooltip"
+        data-placement="bottom" onclick="toggleFullScreen()" aria-label="Fullscreen mode"
+        title="Fullscreen mode"><i
+            class="fas fa-expand"></i></button></a>
+
+            <!-- Launch buttons -->
+
+<div class="dropdown-buttons-trigger">
+    <button id="dropdown-buttons-trigger" class="btn btn-secondary topbarbtn"
+        aria-label="Launch interactive content"><i class="fas fa-rocket"></i></button>
+    <div class="dropdown-buttons">
+        
+        <a class="binder-button" href="https://mybinder.org/v2/gh/ebatty/EncodingDecodingNotes/main?urlpath=tree/Notes/03_SpikeTriggeredAverages.ipynb"><button type="button"
+                class="btn btn-secondary topbarbtn" title="Launch Binder" data-toggle="tooltip"
+                data-placement="left"><img class="binder-button-logo"
+                    src="../_static/images/logo_binder.svg"
+                    alt="Interact on binder">Binder</button></a>
+        
+        
+        
+        <a class="colab-button" href="https://colab.research.google.com/github/ebatty/EncodingDecodingNotes/blob/main/Notes/03_SpikeTriggeredAverages.ipynb"><button type="button" class="btn btn-secondary topbarbtn"
+                title="Launch Colab" data-toggle="tooltip" data-placement="left"><img class="colab-button-logo"
+                    src="../_static/images/logo_colab.png"
+                    alt="Interact on Colab">Colab</button></a>
+        
+        <button type="button" class="btn btn-secondary topbarbtn"
+            onclick="initThebeSBT()" title="Launch Thebe" data-toggle="tooltip" data-placement="left"><i
+                class="fas fa-play"></i><span style="margin-left: .4em;">Live Code</span></button>
+        
+    </div>
+</div>
+
+        </div>
+
+        <!-- Table of contents -->
+        <div class="d-none d-md-block col-md-2 bd-toc show noprint">
+            
+            <div class="tocsection onthispage pt-5 pb-3">
+                <i class="fas fa-list"></i> Contents
+            </div>
+            <nav id="bd-toc-nav" aria-label="Page">
+                <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   03 - Spike Triggered Averages
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-why-do-we-need-to-move-beyond-tuning-curves">
+   Section 1: Why do we need to move beyond tuning curves?
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-2-one-dimensional-spike-triggered-average-sta">
+   Section 2: One-dimensional spike triggered average (STA)
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-1-intro-to-sta">
+     Section 2.1: Intro to STA
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-2-computing-stas-by-hand">
+     Section 2.2: Computing STAs by hand
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-3-computing-stas-in-code">
+     Section 2.3: Computing STAs in code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-3-stas-for-higher-dimensional-stimuli">
+   Section 3: STAs for higher-dimensional stimuli
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-4-interpreting-stas">
+   Section 4: Interpreting STAs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-4-1-stas-receptive-fields">
+     Section 4.1: STAs ~ receptive fields
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-4-2-stimulus-requirements">
+     Section 4.2: Stimulus requirements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optional-reading">
+   Optional Reading
+  </a>
+ </li>
+</ul>
+
+            </nav>
+        </div>
+    </div>
+</div>
+    <div id="main-content" class="row">
+        <div class="col-12 col-md-9 pl-md-3 pr-md-0">
+            <!-- Table of contents that is only displayed when printing the page -->
+            <div id="jb-print-docs-body" class="onlyprint">
+                <h1>03 - Spike Triggered Averages</h1>
+                <!-- Table of contents -->
+                <div id="print-main-content">
+                    <div id="jb-print-toc">
+                        
+                        <div>
+                            <h2> Contents </h2>
+                        </div>
+                        <nav aria-label="Page">
+                            <ul class="visible nav section-nav flex-column">
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#">
+   03 - Spike Triggered Averages
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-1-why-do-we-need-to-move-beyond-tuning-curves">
+   Section 1: Why do we need to move beyond tuning curves?
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-2-one-dimensional-spike-triggered-average-sta">
+   Section 2: One-dimensional spike triggered average (STA)
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-1-intro-to-sta">
+     Section 2.1: Intro to STA
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-2-computing-stas-by-hand">
+     Section 2.2: Computing STAs by hand
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-2-3-computing-stas-in-code">
+     Section 2.3: Computing STAs in code
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-3-stas-for-higher-dimensional-stimuli">
+   Section 3: STAs for higher-dimensional stimuli
+  </a>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#section-4-interpreting-stas">
+   Section 4: Interpreting STAs
+  </a>
+  <ul class="visible nav section-nav flex-column">
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-4-1-stas-receptive-fields">
+     Section 4.1: STAs ~ receptive fields
+    </a>
+   </li>
+   <li class="toc-h2 nav-item toc-entry">
+    <a class="reference internal nav-link" href="#section-4-2-stimulus-requirements">
+     Section 4.2: Stimulus requirements
+    </a>
+   </li>
+  </ul>
+ </li>
+ <li class="toc-h1 nav-item toc-entry">
+  <a class="reference internal nav-link" href="#optional-reading">
+   Optional Reading
+  </a>
+ </li>
+</ul>
+
+                        </nav>
+                    </div>
+                </div>
+            </div>
+            
+              <div>
+                
+  <p><a href="https://colab.research.google.com/github/ebatty/EncodingDecodingNotes/blob/main/Notes/03_SpikeTriggeredAverages.ipynb" target="_blank"><img alt="Open In Colab" src="https://colab.research.google.com/assets/colab-badge.svg" /></a></p>
+<div class="tex2jax_ignore mathjax_ignore section" id="spike-triggered-averages">
+<h1>03 - Spike Triggered Averages<a class="headerlink" href="#spike-triggered-averages" title="Permalink to this headline">¶</a></h1>
+<p>Learning objectives of lecture/notes: After lecture, students should be able to:</p>
+<ul class="simple">
+<li><p>Interpret information from spike-triggered average and know when you can do so</p></li>
+<li><p>Be able to compute STA using both math and code</p></li>
+</ul>
+<p>Imports</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Imports</span>
+<span class="kn">import</span> <span class="nn">numpy</span> <span class="k">as</span> <span class="nn">np</span>
+<span class="kn">import</span> <span class="nn">matplotlib.pyplot</span> <span class="k">as</span> <span class="nn">plt</span>
+<span class="kn">import</span> <span class="nn">scipy.io</span> <span class="k">as</span> <span class="nn">sio</span>
+<span class="o">!</span>pip install -q gdown
+</pre></div>
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-1-why-do-we-need-to-move-beyond-tuning-curves">
+<h1>Section 1: Why do we need to move beyond tuning curves?<a class="headerlink" href="#section-1-why-do-we-need-to-move-beyond-tuning-curves" title="Permalink to this headline">¶</a></h1>
+<p>In the last lecture, we saw the use of tuning curves as a way to understand the relationship between a stimulus and the responses of a neuron. However, this approch is pretty limited. Tuning curves are very simple: you can’t use them to capture responses to complex or multiple features. You can only use them to look at average firing rate to discrete options of a stimulus that you choose (like different reaches).  Additionally, they don’t consider timing information present in neural responses. Neurons tend to respond to aspects of the stimuli in a recent window in the past, essentially integrating over the recent past. They also respond in a time-varying manner to different stimuli. So, we need to move beyond tuning curves to more sophisticated methods of observing the relationship between stimulus and neural response.</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-2-one-dimensional-spike-triggered-average-sta">
+<h1>Section 2: One-dimensional spike triggered average (STA)<a class="headerlink" href="#section-2-one-dimensional-spike-triggered-average-sta" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-2-1-intro-to-sta">
+<h2>Section 2.1: Intro to STA<a class="headerlink" href="#section-2-1-intro-to-sta" title="Permalink to this headline">¶</a></h2>
+<p>We will first work with spike times from a single neuron, recording while a 1-dimensional stimulus was presented. We will work with data collected by Rob de Ruyter van Steveninck from a fly H1 neuron responding to an approximate white-noise visual motion stimulus (from Dayan &amp; Abbott 2001). The data was collected for 20 minutes at a sampling rate of 500 Hz.</p>
+<p>Execute this cell to download &amp; visualize data</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute this cell to download &amp; visualize data</span>
+<span class="o">!</span>gdown --id  1V2QAdFLQnAb-gdFQ9-Py1AydI7tlTifm
+
+<span class="n">d</span> <span class="o">=</span> <span class="n">sio</span><span class="o">.</span><span class="n">loadmat</span><span class="p">(</span><span class="s1">&#39;c1p8.mat&#39;</span><span class="p">)</span>
+
+<span class="n">spikes</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;rho&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,</span> <span class="p">))</span>
+<span class="n">stim</span> <span class="o">=</span> <span class="n">d</span><span class="p">[</span><span class="s1">&#39;stim&#39;</span><span class="p">]</span><span class="o">.</span><span class="n">reshape</span><span class="p">((</span><span class="o">-</span><span class="mi">1</span><span class="p">,))</span>
+<span class="n">dt</span> <span class="o">=</span> <span class="mi">2</span>  <span class="c1"># length of each bin in milliseconds</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">stim</span><span class="p">[:</span><span class="mi">500</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Stimulus&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">spikes</span><span class="p">[:</span><span class="mi">500</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Spikes&#39;</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time bins&#39;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Downloading...
+From: https://drive.google.com/uc?id=1V2QAdFLQnAb-gdFQ9-Py1AydI7tlTifm
+To: /home/runner/work/EncodingDecodingNotes/EncodingDecodingNotes/Notes/c1p8.mat
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  0%|                                               | 0.00/5.40M [00:00&lt;?, ?B/s]
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>100%|███████████████████████████████████████| 5.40M/5.40M [00:00&lt;00:00, 177MB/s]
+</pre></div>
+</div>
+<div class="output text_plain highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>[Text(0.5, 1.0, &#39;Spikes&#39;), Text(0.5, 0, &#39;Time bins&#39;)]
+</pre></div>
+</div>
+<img alt="../_images/03_SpikeTriggeredAverages_8_4.png" src="../_images/03_SpikeTriggeredAverages_8_4.png" />
+</div>
+</div>
+<p>As you can see below, for each time bin (2 ms chunk of time), we have the value of the stimulus and whether a spike occurred or not. The stimulus is denoted by just a single number per time bin.</p>
+<p>So how do we start to understand what about the stimulus (if any) is causing the neuron to spike? We could simply ask <strong>what on average was the stimulus before a spike</strong>. For example, if a neuron responds to high values of the stimulus, you would expect the stimulus to have on average high values before a spike. This is the idea behind a spike-triggered average!</p>
+<p>To compute the spike-triggered average, we want to gather the stimulus chunks before each spike, and take the average of them. Let’s make that mathematical. Given spike times <span class="math notranslate nohighlight">\(t_1\)</span>, <span class="math notranslate nohighlight">\(t_2\)</span>, …, <span class="math notranslate nohighlight">\(t_n\)</span> for <span class="math notranslate nohighlight">\(n\)</span> spikes and stimulus <span class="math notranslate nohighlight">\(s\)</span>:</p>
+<div class="math notranslate nohighlight">
+\[STA(\tau) = \frac{1}{n}\sum_{i=1}^n s(t_i - \tau)\]</div>
+<p>This tells us that the spike triggered average at some <span class="math notranslate nohighlight">\(\tau\)</span> before a spike is equal to the average of the stimulus at that <span class="math notranslate nohighlight">\(\tau\)</span> before every spike.</p>
+<p><strong>STA in terms of time bins:</strong></p>
+<p>We often work within the context of time bins, as we saw in our last lecture, so let’s reframe the STA in this context, instead of thinking about continuous time. Let’s assume we have the spike counts at each time bin as <span class="math notranslate nohighlight">\(y_1\)</span>, <span class="math notranslate nohighlight">\(y_2\)</span>, …, <span class="math notranslate nohighlight">\(y_T\)</span> and the stimulus at each time bin as <span class="math notranslate nohighlight">\(s_1\)</span>, <span class="math notranslate nohighlight">\(s_2\)</span>, …, <span class="math notranslate nohighlight">\(s_T\)</span> for <span class="math notranslate nohighlight">\(T\)</span> time bins. We choose the number of time bins before a spike we want to include in our spike-triggered average - let’s say in this case we choose 5 time bins. Then, our equation becomes:</p>
+<div class="math notranslate nohighlight">
+\[STA = \frac{1}{n}\sum_{i = 0}^T y_i*s_{i - 5:i} \]</div>
+<p>where <span class="math notranslate nohighlight">\(s_{i - 5:i}\)</span> is a vector of the stimulus over the past 5 time bins before i. Note that for all the bins where there are zero spikes, the term <span class="math notranslate nohighlight">\(y_i*s_{i - 5:i} \)</span> will be 0 so we could speed up our computation by just focusing on bins where there are spikes.</p>
+<p>We show the computed STA for our data above in the cell below.</p>
+<p>Execute to visualize STA</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute to visualize STA</span>
+<span class="c1"># Figure out how many time bins we want the STA to be</span>
+<span class="n">STA_length</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="c1"># Figure out when spikes occur</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">spikes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Ignore spike times less than STA length (since there won&#39;t be enough preceding stimulus)</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">spike_times</span><span class="p">[</span><span class="n">spike_times</span> <span class="o">&gt;</span> <span class="n">STA_length</span><span class="p">]</span>
+
+<span class="c1"># Initialize STA</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">STA_length</span><span class="p">,))</span>
+
+<span class="c1"># Loop over spikes</span>
+<span class="k">for</span> <span class="n">i_sp</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="p">:</span>
+    
+    <span class="c1"># Add preceding stimulus</span>
+    <span class="n">STA</span> <span class="o">+=</span> <span class="n">stim</span><span class="p">[</span><span class="n">i_sp</span> <span class="o">-</span> <span class="n">STA_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">i_sp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Divide by number of spikes</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">STA</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+
+<span class="n">time_before_spike</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">STA_length</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">,</span> <span class="n">STA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;STA&#39;</span><span class="p">,</span> 
+      <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time before spike (ms)&#39;</span><span class="p">,</span>
+      <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Stimulus intensity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_11_0.png" src="../_images/03_SpikeTriggeredAverages_11_0.png" />
+</div>
+</div>
+</div>
+<div class="section" id="section-2-2-computing-stas-by-hand">
+<h2>Section 2.2: Computing STAs by hand<a class="headerlink" href="#section-2-2-computing-stas-by-hand" title="Permalink to this headline">¶</a></h2>
+<p>Let’s compute a spike-triggered average (STA) with a numerical example. Let’s say we have the following stimulus values, where each entry in the vector is the stimulus at a time bin (so the first entry is <span class="math notranslate nohighlight">\(s_1\)</span>, the second is <span class="math notranslate nohighlight">\(s_2\)</span>, and so on).</p>
+<p><span class="math notranslate nohighlight">\(s\)</span> =    [0, 1, 1, 0, 2, -1, 0, 3, 1, 0, -4]</p>
+<p>We have the following spike counts for the corresponding time bins:</p>
+<p><span class="math notranslate nohighlight">\(y\)</span> = [0, 0, 0, 1, 0,  1,  0, 1, 0, 0, 0]</p>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What is the spike-triggered average? Let’s use 3 time bins, including the time bin that the spike occurs.</p>
+<p>Our first spike is at time step 4. The previous stimulus is [1, 1, 0]. Remember we’re including the time step of the spike, so we are not using [0, 1, 1].</p>
+<p>The next spike is at time step 6. The previous stimulus is [0, 2, -1].</p>
+<p>The next spike is at time step 8. The previous stimulus is [-1, 0, 3]</p>
+<p>So our spike-triggered stimuli are: [1, 1, 0], [0, 2, -1], and [-1, 0, 3].</p>
+<p>Our STA is the average of those so: [0, 1, 2].</p>
+</div>
+</div>
+<div class="section" id="section-2-3-computing-stas-in-code">
+<h2>Section 2.3: Computing STAs in code<a class="headerlink" href="#section-2-3-computing-stas-in-code" title="Permalink to this headline">¶</a></h2>
+<p>Let’s dive into some code that computes a spike-triggered average on our data. <code class="docutils literal notranslate"><span class="pre">spikes</span></code> is an array that gives the sequence of spiking events at the sampled times (every 2 ms). When an element of <code class="docutils literal notranslate"><span class="pre">spikes</span></code> is one, this indicates the presence of a spike at the corresponding time, whereas a zero value indicates no spike.</p>
+<p>The variable <code class="docutils literal notranslate"><span class="pre">stim</span></code> gives the sequence of stimulus values at the sampled times.</p>
+<p>We will compute a spike-triggered average that is 300 ms long (the 300 ms before each spike).</p>
+<p>See the cell below for code to compute a spike triggered average. We dive into more details of the steps in the text below.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Step 1) Figure out how many time bins we want the STA to be</span>
+<span class="n">STA_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">300</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Step 2) Figure out when spikes occur</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">spikes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Step 3) Ignore spike times less than STA length</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">spike_times</span><span class="p">[</span><span class="n">spike_times</span> <span class="o">&gt;</span> <span class="n">STA_length</span><span class="p">]</span>
+
+<span class="c1"># Step 4) Initialize STA</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">STA_length</span><span class="p">,))</span>
+
+<span class="c1"># Step 5) Loop over spikes &amp; add preceding stimulus</span>
+<span class="k">for</span> <span class="n">i_sp</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="p">:</span>
+    
+    <span class="c1"># Add preceding stimulus</span>
+    <span class="n">STA</span> <span class="o">+=</span> <span class="n">stim</span><span class="p">[</span><span class="n">i_sp</span> <span class="o">-</span> <span class="n">STA_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">i_sp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Step 6) Divide by number of spikes</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">STA</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">time_before_spike</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">STA_length</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">,</span> <span class="n">STA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;STA&#39;</span><span class="p">,</span> 
+      <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time before spike (ms)&#39;</span><span class="p">,</span>
+      <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Stimulus intensity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_15_0.png" src="../_images/03_SpikeTriggeredAverages_15_0.png" />
+</div>
+</div>
+<p>Step 1) We first figure out how many time bins we want the STA to be - if we want it to be 300 ms and each bin is 2 ms/bin, we we want 300 ms / 2 ms/bin = 150 bins long.</p>
+<p>Step 2) We then find the bins where spikes occur. We can use <code class="docutils literal notranslate"><span class="pre">np.where</span></code> to get the indices of the entries in <code class="docutils literal notranslate"><span class="pre">spikes</span></code> that are non-zero. Our maximum spike count in <code class="docutils literal notranslate"><span class="pre">spikes</span></code> is 1 so we don’t have to worry about time bins having more than one spike (although we sometimes would!).</p>
+<p>Step 3) We will just ignore spike times that occur really early in our data, as there is not a long enough preceding stimulus to use for our averaging.</p>
+<p>Step 4) We want to initialize our STA so we can add stimulus chunks to it iteratively. We create a vector of zeros the correct length.</p>
+<p>Step 5) We loop over spike times. For each spike time, we take the preceding 150 time bins of the stimulus using <code class="docutils literal notranslate"><span class="pre">stim[i_sp</span> <span class="pre">-</span> <span class="pre">STA_length</span> <span class="pre">-1:</span> <span class="pre">i_sp</span> <span class="pre">+</span> <span class="pre">1]</span></code> and add it to the STA. The -1 and +1 is so we include the time bin of the spike.</p>
+<p>Step 6) We have summed over the stimuli before spikes but we want to average, so we need to divide by the number of spikes.</p>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-3-stas-for-higher-dimensional-stimuli">
+<h1>Section 3: STAs for higher-dimensional stimuli<a class="headerlink" href="#section-3-stas-for-higher-dimensional-stimuli" title="Permalink to this headline">¶</a></h1>
+<p>So far, we have only looked at computing STAs for a 1d stimulus over time. In other words, a stimulus that has only one data point per time bin. We can compute an STA for a stimulus for any number of dimensions. For example, let’s say the stimulus is a movie. Instead of looking at the average number that triggered a spike at certain delays before a spike (as in the case of the 1d stimulus), we want to look at the average image that triggered a spike at various time bins before the spike. So we want the average image 1 time step back, the average image 2 time steps back, and so on. This idea is conveyed in the image below. We’d end up with a spike triggered average of shape (number of time bins of STA x number of pixels x number of pixels).</p>
+<img alt="STA from movie" src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2c/Illustration_diagram_for_the_Spike-triggered_average.pdf/page1-1335px-Illustration_diagram_for_the_Spike-triggered_average.pdf.jpg" />
+<p><em>Spike triggered average with a movie stimulus from https://upload.wikimedia.org/wikipedia/commons/2/2c/Illustration_diagram_for_the_Spike-triggered_average.pdf</em></p>
+<p>We may have stimuli that aren’t images but have more than 1 dimension. We’d treat these similar to the movie, where we average over each feature (or dimension) separately. So if our stimulus is represented by 3 numbers per time bin, we would get an STA of shape (number of time bins x 3).</p>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="section-4-interpreting-stas">
+<h1>Section 4: Interpreting STAs<a class="headerlink" href="#section-4-interpreting-stas" title="Permalink to this headline">¶</a></h1>
+<div class="section" id="section-4-1-stas-receptive-fields">
+<h2>Section 4.1: STAs ~ receptive fields<a class="headerlink" href="#section-4-1-stas-receptive-fields" title="Permalink to this headline">¶</a></h2>
+<p>The spike-triggered average tells us what about the stimulus leads the neuron to respond, allowing us to interpret something about neural processing. In other words, the STA provides an estimate of a neuron’s linear receptive field. For example, look atLet’s take another look at our STA from our example data.</p>
+<p>Execute to visualize STA</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute to visualize STA</span>
+<span class="c1"># Figure out how many time bins we want the STA to be</span>
+<span class="n">STA_length</span> <span class="o">=</span> <span class="mi">150</span>
+
+<span class="c1"># Figure out when spikes occur</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">spikes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Ignore spike times less than STA length (since there won&#39;t be enough preceding stimulus)</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">spike_times</span><span class="p">[</span><span class="n">spike_times</span> <span class="o">&gt;</span> <span class="n">STA_length</span><span class="p">]</span>
+
+<span class="c1"># Initialize STA</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">STA_length</span><span class="p">,))</span>
+
+<span class="c1"># Loop over spikes</span>
+<span class="k">for</span> <span class="n">i_sp</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="p">:</span>
+    
+    <span class="c1"># Add preceding stimulus</span>
+    <span class="n">STA</span> <span class="o">+=</span> <span class="n">stim</span><span class="p">[</span><span class="n">i_sp</span> <span class="o">-</span> <span class="n">STA_length</span><span class="p">:</span> <span class="n">i_sp</span><span class="p">]</span>
+
+<span class="c1"># Divide by number of spikes</span>
+<span class="n">STA</span> <span class="o">=</span> <span class="n">STA</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+
+<span class="n">time_before_spike</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">STA_length</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">,</span> <span class="n">STA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;STA&#39;</span><span class="p">,</span> 
+      <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time before spike (ms)&#39;</span><span class="p">,</span>
+      <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Stimulus intensity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_23_0.png" src="../_images/03_SpikeTriggeredAverages_23_0.png" />
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> What can you interpret about this fly H1 neuron response to the visual motion stimulus from the STA?</p>
+<p>High values of the stimulus tend to prompt a neural spike around 50 milliseconds later.</p>
+</div>
+<p>Execute to visualize another STA</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute to visualize another STA</span>
+<span class="n">time_before_spike</span> <span class="o">=</span> <span class="p">(</span><span class="o">-</span><span class="n">np</span><span class="o">.</span><span class="n">arange</span><span class="p">(</span><span class="n">STA_length</span><span class="p">)</span><span class="o">*</span><span class="n">dt</span><span class="p">)[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">,</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="nb">len</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">),)),</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;STA&#39;</span><span class="p">,</span> 
+      <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time before spike (ms)&#39;</span><span class="p">,</span>
+      <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Stimulus intensity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_26_0.png" src="../_images/03_SpikeTriggeredAverages_26_0.png" />
+</div>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> If you saw a completely flat STA, as above, what would you guess about the neuron?</p>
+<p>You could hypothesis that the neural response doesn’t depend on the stimulus/isn’t affected by it. You might see this if you are recording from an auditory neuron and trying to relate to a visual stimulus for example! This may not be true, the neural response may depend on the stimulus in a way that’s more complex than an STA can capture.</p>
+</div>
+<div class="tip dropdown admonition">
+<p class="admonition-title"><strong>Stop and think!</strong> Why do we use the prior stimulus before a spike to compute the STA? Why not also use the stimulus after a spike?</p>
+<p>A neuron could not respond based on a future stimulus that it hasn’t seen yet. If we were looking at a behavioral variable, it could be useful to look at the spike-triggered average in the past and future as neurons could be firing in advance of some behavior. However, behavior doesn’t usually fulfil the input requirements for useful spike-triggered averages (detailed in next section).</p>
+</div>
+</div>
+<div class="section" id="section-4-2-stimulus-requirements">
+<h2>Section 4.2: Stimulus requirements<a class="headerlink" href="#section-4-2-stimulus-requirements" title="Permalink to this headline">¶</a></h2>
+<p>The spike-triggered average is only meaningful to compute and interpret for certain types of stimuli. Specifically, for uncorrelated stimuli, where the values of the stimulus <strong>independent and identially distributed</strong> at each time bin. In other words, the value of the stimulus at a certain time should not depend on the values of the stimulus before or after and should be drawn at random from a probability distribution (the same distribution should be used for all time bins). <strong>White noise stimuli</strong> fulfill these requirements.</p>
+<p>So, why can’t we interpret spike-triggered averages with correlated stimuli? Imagine we had a repeating stimulus, as below. We presented this to the fly H1 neuron we’ve been working with and record the spikes. Please note, the data below is faked.</p>
+<p>Execute cell to visualize correlated stimulus and simulated responses</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute cell to visualize correlated stimulus and simulated responses</span>
+
+<span class="c1"># Create repeating stimulus</span>
+<span class="n">stim_segment</span> <span class="o">=</span> <span class="o">-</span><span class="n">STA</span><span class="p">[::</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span> <span class="o">+</span> <span class="n">STA</span>
+<span class="n">corr_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">tile</span><span class="p">(</span><span class="n">stim_segment</span><span class="p">,</span> <span class="nb">int</span><span class="p">(</span><span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">/</span><span class="n">stim_segment</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]))</span>
+
+<span class="c1"># Create model for fake spikes</span>
+<span class="n">STA_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+<span class="k">for</span> <span class="n">i_t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">STA_stim</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">stim</span><span class="p">[</span><span class="n">i_t</span> <span class="o">-</span> <span class="n">STA_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">i_t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">STA</span><span class="p">)</span>
+
+<span class="n">bins</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">linspace</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">min</span><span class="p">(</span><span class="n">STA_stim</span><span class="p">),</span> <span class="n">np</span><span class="o">.</span><span class="n">max</span><span class="p">(</span><span class="n">STA_stim</span><span class="p">),</span> <span class="mi">25</span><span class="p">)</span>
+
+<span class="n">all_stim_bins</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">STA_stim</span><span class="p">,</span> <span class="n">bins</span><span class="p">)</span>
+<span class="n">spike_stim_bins</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">STA_stim</span><span class="p">[</span><span class="n">spike_times</span><span class="p">],</span> <span class="n">bins</span><span class="p">)</span>
+<span class="n">nonlin</span> <span class="o">=</span> <span class="n">spike_stim_bins</span><span class="o">/</span><span class="n">all_stim_bins</span>
+
+<span class="c1"># Create fake spikes</span>
+<span class="n">STA_stim</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+<span class="n">sim_spikes</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+<span class="n">all_nonlin</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">],))</span>
+
+<span class="k">for</span> <span class="n">i_t</span> <span class="ow">in</span> <span class="nb">range</span><span class="p">(</span><span class="mi">150</span><span class="p">,</span> <span class="n">stim</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]):</span>
+    <span class="n">STA_stim</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">dot</span><span class="p">(</span><span class="n">corr_stim</span><span class="p">[</span><span class="n">i_t</span> <span class="o">-</span> <span class="n">STA_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">i_t</span> <span class="o">+</span> <span class="mi">1</span><span class="p">],</span> <span class="n">STA</span><span class="p">)</span>
+    <span class="k">if</span> <span class="n">STA_stim</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">&lt;</span> <span class="n">bins</span><span class="p">[</span><span class="mi">0</span><span class="p">]:</span>
+        <span class="n">this_nonlin</span> <span class="o">=</span> <span class="n">nonlin</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span>
+    <span class="k">elif</span> <span class="n">STA_stim</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">bins</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]:</span>
+      <span class="n">this_nonlin</span> <span class="o">=</span> <span class="n">nonlin</span><span class="p">[</span><span class="o">-</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">else</span><span class="p">:</span>
+      <span class="n">nonlin_bin</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span><span class="n">STA_stim</span><span class="p">[</span><span class="n">i_t</span><span class="p">],</span> <span class="n">bins</span><span class="p">)</span>
+      <span class="n">this_nonlin</span> <span class="o">=</span> <span class="n">nonlin</span><span class="p">[</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">nonlin_bin</span><span class="p">)[</span><span class="mi">0</span><span class="p">]]</span>
+
+    <span class="n">all_nonlin</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">this_nonlin</span>
+    <span class="n">sim_spikes</span><span class="p">[</span><span class="n">i_t</span><span class="p">]</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">random</span><span class="o">.</span><span class="n">poisson</span><span class="p">(</span><span class="n">this_nonlin</span><span class="p">)</span>
+
+<span class="c1"># Visualize</span>
+<span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">2</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span><span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">5</span><span class="p">),</span> <span class="n">sharex</span> <span class="o">=</span> <span class="kc">True</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">corr_stim</span><span class="p">[:</span><span class="mi">1500</span><span class="p">],</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Stimulus&#39;</span><span class="p">)</span>
+
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">eventplot</span><span class="p">(</span><span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sim_spikes</span><span class="p">[:</span><span class="mi">1500</span><span class="p">])[</span><span class="mi">0</span><span class="p">],</span> <span class="n">color</span> <span class="o">=</span> <span class="s1">&#39;k&#39;</span><span class="p">)</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;Spikes&#39;</span><span class="p">,</span> <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time bins&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_32_0.png" src="../_images/03_SpikeTriggeredAverages_32_0.png" />
+</div>
+</div>
+<p>The neuron always spikes around the same point in the pattern. This means that when we average over the stimuli before the spikes, we get unwanted structure in our STA. See the STA computed in the cell below. As we’ve seen, the neuron responds to high stimulus values about 50 ms before the spike. Because of the repeating nature of the stimulus, it looks from this STA like the neuron responds to negative values of the stimulus around .. before the spike, which is incorrect! In essence, the correlated nature of the stimulus has meant we haven’t explored enough stimulus patterns to get a good sense of the neural dependency on the stimulus. This is an especially egregious case of a correlated stimulus - we have repeating chunks - but any amount of correlation can interfere with our ability to estimate the linear receptive field with a linear filter well!</p>
+<p>Execute to visualize STA computed from correlated stimulus</p>
+<div class="cell tag_hide-input docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># @markdown Execute to visualize STA computed from correlated stimulus</span>
+
+<span class="c1"># Step 1) Figure out how many time bins we want the STA to be</span>
+<span class="n">STA_length</span> <span class="o">=</span> <span class="nb">int</span><span class="p">(</span><span class="mi">300</span> <span class="o">/</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="c1"># Step 2) Figure out when spikes occur</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">where</span><span class="p">(</span><span class="n">sim_spikes</span><span class="p">)[</span><span class="mi">0</span><span class="p">]</span>
+
+<span class="c1"># Step 3) Ignore spike times less than STA length</span>
+<span class="n">spike_times</span> <span class="o">=</span> <span class="n">spike_times</span><span class="p">[</span><span class="n">spike_times</span> <span class="o">&gt;</span> <span class="n">STA_length</span><span class="p">]</span>
+
+<span class="c1"># Step 4) Initialize STA</span>
+<span class="n">sim_STA</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">zeros</span><span class="p">((</span><span class="n">STA_length</span><span class="p">,))</span>
+
+<span class="c1"># Step 5) Loop over spikes &amp; add preceding stimulus</span>
+<span class="k">for</span> <span class="n">i_sp</span> <span class="ow">in</span> <span class="n">spike_times</span><span class="p">:</span>
+    
+    <span class="c1"># Add preceding stimulus</span>
+    <span class="n">sim_STA</span> <span class="o">+=</span> <span class="n">corr_stim</span><span class="p">[</span><span class="n">i_sp</span> <span class="o">-</span> <span class="n">STA_length</span> <span class="o">+</span> <span class="mi">1</span><span class="p">:</span> <span class="n">i_sp</span> <span class="o">+</span> <span class="mi">1</span><span class="p">]</span>
+
+<span class="c1"># Step 6) Divide by number of spikes</span>
+<span class="n">sim_STA</span> <span class="o">=</span> <span class="n">sim_STA</span> <span class="o">/</span> <span class="nb">len</span><span class="p">(</span><span class="n">spike_times</span><span class="p">)</span>
+
+
+<span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="n">figsize</span> <span class="o">=</span> <span class="p">(</span><span class="mi">10</span><span class="p">,</span> <span class="mi">7</span><span class="p">))</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">plot</span><span class="p">(</span><span class="n">time_before_spike</span><span class="p">,</span> <span class="n">sim_STA</span><span class="p">,</span> <span class="s1">&#39;k&#39;</span><span class="p">,</span> <span class="n">lw</span> <span class="o">=</span> <span class="mi">2</span><span class="p">)</span>
+
+<span class="n">ax</span><span class="o">.</span><span class="n">set</span><span class="p">(</span><span class="n">title</span> <span class="o">=</span> <span class="s1">&#39;STA&#39;</span><span class="p">,</span> 
+      <span class="n">xlabel</span> <span class="o">=</span> <span class="s1">&#39;Time before spike (ms)&#39;</span><span class="p">,</span>
+      <span class="n">ylabel</span> <span class="o">=</span> <span class="s1">&#39;Stimulus intensity&#39;</span><span class="p">);</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../_images/03_SpikeTriggeredAverages_35_0.png" src="../_images/03_SpikeTriggeredAverages_35_0.png" />
+</div>
+</div>
+</div>
+</div>
+<div class="tex2jax_ignore mathjax_ignore section" id="optional-reading">
+<h1>Optional Reading<a class="headerlink" href="#optional-reading" title="Permalink to this headline">¶</a></h1>
+<p>Dayan &amp; Abbott cover spike triggered averages in Chapter 1: http://www.gatsby.ucl.ac.uk/~lmate/biblio/dayanabbott.pdf</p>
+<p>More advanced than we go, but a very thorough review of spike-triggered neural characterization: https://jov.arvojournals.org/article.aspx?articleid=2192881</p>
+</div>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "ebatty/EncodingDecodingNotes",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            kernelName: "python3",
+            path: "./Notes"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+              </div>
+              
+            
+                <!-- Previous / next buttons -->
+<div class='prev-next-area'> 
+    <a class='left-prev' id="prev-link" href="02_TuningCurves.html" title="previous page">
+        <i class="fas fa-angle-left"></i>
+        <div class="prev-next-info">
+            <p class="prev-next-subtitle">previous</p>
+            <p class="prev-next-title">02 -  Tuning Curves</p>
+        </div>
+    </a>
+</div>
+            
+        </div>
+    </div>
+    <footer class="footer">
+  <p>
+    
+      By Ella Batty<br/>
+    
+        &copy; Copyright 2022.<br/>
+  </p>
+</footer>
+</main>
+
+
+      </div>
+    </div>
+  
+  <script src="../_static/js/index.be7d3bbb2ef33a8344ce.js"></script>
+
+  </body>
+</html>
